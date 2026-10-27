@@ -1,4 +1,4 @@
-/* Versión clásica: pinta servicios, áreas, etapas y logos a partir de los
+/* Versión clásica: pinta servicios, áreas y etapas a partir de los
    mismos datos de la versión interactiva (js/datos), sin animaciones. */
 ICAP.clasica = {};
 
@@ -56,12 +56,4 @@ ICAP.clasica.etapas = () => {
       <p>${e.desc}</p>
       <ul>${e.entrega.map((x) => `<li>${x}</li>`).join('')}</ul>
     </li>`).join('');
-};
-
-// Tira continua de logos a color. Va dos veces seguida para que, al correrse
-// la mitad, empalme sin que se note el salto.
-ICAP.clasica.logos = () => {
-  const logos = ICAP.ALIADOS.map((a) => `
-    <li title="${a.nombre}"><img src="assets/logos/${a.logo}.png" alt="${a.sigla} — ${a.nombre}"></li>`).join('');
-  ICAP.$('#cLogos').innerHTML = logos + logos.replace(/<li /g, '<li aria-hidden="true" ');
 };

@@ -1,4 +1,4 @@
-/* Servicios, áreas, etapas y organizaciones de la versión clásica: todo a la
+/* Servicios, áreas y etapas de la versión clásica: todo a la
    vista, en texto. */
 
 /* Diez líneas: tarjetas que dan vuelta al pasar el mouse (o al tocarlas),
@@ -60,14 +60,9 @@
 @media (max-width: 900px) { .c-etapas { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .c-etapas { grid-template-columns: 1fr; } }
 
-/* Organizaciones: tira continua de logos a color que va pasando sola */
-.c-tira {
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-}
-.c-logos { list-style: none; margin: 0; padding: 0; display: flex; width: max-content; animation: c-tira 70s linear infinite; }
-.c-logos li { flex: none; width: 150px; height: 100px; margin-right: 18px; display: grid; place-items: center; padding: 12px; border: 1px solid var(--borde); border-radius: 12px; background: #fff; }
-.c-logos img { max-width: 100%; max-height: 72px; object-fit: contain; }
-@keyframes c-tira { to { transform: translateX(-50%); } }
-@media (max-width: 600px) { .c-logos li { width: 120px; height: 84px; margin-right: 12px; } }
+/* Organizaciones: la misma tira de la versión interactiva (css/aliados.css),
+   con los logos ya a color y las esquinas de la versión clásica. */
+.clasica .logo-aliado { border-radius: 12px; box-shadow: none; }
+.clasica .logo-aliado img { filter: none; opacity: 1; }
+.clasica .nota-aliado { border-radius: 12px; }
+.clasica .nota-proyecto, .clasica .nota-cuerpo .boton { border-radius: 8px; }

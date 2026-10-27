@@ -1,9 +1,12 @@
 /* Tira de organizaciones: avanza sola y se puede arrastrar (mouse o dedo),
    con inercia al soltar. Tocar un logo lo pinta a color y abre una nota con
-   sus proyectos; cada proyecto lleva al explorador ya filtrado. */
+   sus proyectos; cada proyecto lleva al explorador ya filtrado. La usan las dos
+   versiones: la clásica le pasa su propia lista de proyectos. */
 ICAP.aliados = (() => {
   const VELOCIDAD = -0.035; // px por milisegundo
   const UMBRAL_ARRASTRE = 6;
+
+  let filtrar = (filtro) => ICAP.proyectos.filtrar(filtro);
 
   let desplazamiento = 0;
   let inercia = 0;
@@ -125,7 +128,7 @@ ICAP.aliados = (() => {
 
   function irA(filtro) {
     cerrar();
-    ICAP.proyectos.filtrar(filtro);
+    filtrar(filtro);
     ICAP.$('#proyectos').scrollIntoView({ behavior: 'smooth' });
   }
 
@@ -137,7 +140,8 @@ ICAP.aliados = (() => {
     document.querySelectorAll('.logo-aliado.elegido').forEach((l) => l.classList.remove('elegido'));
   }
 
-  function iniciar() {
+  function iniciar(opciones = {}) {
+    filtrar = opciones.filtrar ?? filtrar;
     pintar();
     escucharArrastre();
     requestAnimationFrame((t) => animar(t, t));

@@ -14,6 +14,7 @@
   <!-- Versión clásica: misma estructura y datos que index.html, pero en texto,
        como la página oficial, y casi sin animaciones. -->
   <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/aliados.css">
   <link rel="stylesheet" href="css/clasica/base.css">
   <link rel="stylesheet" href="css/clasica/secciones.css">
   <link rel="stylesheet" href="css/clasica/proyectos.css">
@@ -27,6 +28,7 @@
   <script defer src="js/datos/aliados.js"></script>
   <script defer src="js/util.js"></script>
   <script defer src="js/clasica/secciones.js"></script>
+  <script defer src="js/aliados.js"></script>
   <script defer src="js/clasica/proyectos.js"></script>
   <script defer src="js/switch.js"></script>
 </head>
@@ -127,7 +129,10 @@
         <p>ICAP apoya a los gobiernos nacionales y locales de Centroamérica y el Caribe y a múltiples organizaciones públicas y privadas.</p>
       </header>
     </div>
-    <div class="c-tira"><ul class="c-logos" id="cLogos"></ul></div>
+    <div class="tira" id="tira">
+      <div class="tira-pista" id="pistaAliados"></div>
+    </div>
+    <div class="nota-aliado" id="notaAliado" role="dialog" aria-modal="false" hidden></div>
   </section>
 
   <!-- Cierre y contacto, como el pie de la página oficial -->

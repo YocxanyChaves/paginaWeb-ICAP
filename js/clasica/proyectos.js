@@ -1,9 +1,11 @@
 /* Proyectos en la versión clásica: un formulario de filtros (texto, área,
-   estado y países) y una lista de a 4. Con varios países marcados salen sólo
-   los proyectos que los abarcan a todos, igual que en la versión interactiva. */
+   estado y países) y una lista que muestra 2; "Ver más" despliega todos. Con varios países marcados salen sólo
+   los proyectos que los abarcan a todos, igual que en la versión interactiva.
+   Desde la nota de una organización llega ya filtrado por ella o por un proyecto. */
 ICAP.clasica.proyectos = (() => {
-  const PAGINA = 4;
+  const PAGINA = 2;
   let limite = PAGINA;
+  let especial = null;
   const form = () => ICAP.$('#cFiltros');
 
   function pintarFiltros() {
@@ -19,6 +21,7 @@ ICAP.clasica.proyectos = (() => {
     const q = ICAP.normalizar(f.texto.value.trim());
     const paises = [...f.querySelectorAll('[name="pais"]:checked')].map((c) => c.value);
     return ICAP.PROYECTOS
+      .filter((p) => !especial || (especial.proyecto ? p.id === especial.proyecto.id : especial.aliado.patron?.test(p.cliente)))
       .filter((p) => !f.area.value || p.etiquetas.includes(f.area.value))
       .filter((p) => f.estado.value === 'todos' || (f.estado.value === 'curso') === ICAP.enCurso(p))
       .filter((p) => paises.every((c) => ICAP.paisesDe(p).includes(c)))
@@ -41,18 +44,32 @@ ICAP.clasica.proyectos = (() => {
 
   function pintar() {
     const resultado = lista();
-    ICAP.$('#cConteo').innerHTML = `<strong>${resultado.length}</strong> de ${ICAP.PROYECTOS.length} proyectos`;
+    const de = especial && (especial.proyecto ? 'proyecto elegido' : especial.aliado.sigla);
+    ICAP.$('#cConteo').innerHTML = `<strong>${resultado.length}</strong> de ${ICAP.PROYECTOS.length} proyectos` +
+      (de ? ` · ${de} <button type="button" class="c-quitar">Quitar filtro</button>` : '');
     ICAP.$('#cProyectos').innerHTML = resultado.length
       ? resultado.slice(0, limite).map(fila).join('')
       : '<li class="c-vacio">No hay proyectos con esa combinación de filtros.</li>';
     ICAP.$('#cVerMas').hidden = resultado.length <= limite;
-    ICAP.$('#cVerMenos').hidden = limite <= PAGINA;
+    ICAP.$('#cVerMas').textContent = `Ver los ${resultado.length} proyectos`;
+    ICAP.$('#cVerMenos').hidden = limite <= PAGINA || resultado.length <= PAGINA;
+  }
+
+  // Lo usa la tira de organizaciones: { aliado } o { proyecto }.
+  function filtrar(filtro) {
+    form().reset();
+    especial = filtro.aliado || filtro.proyecto ? filtro : null;
+    limite = PAGINA;
+    pintar();
   }
 
   function iniciar() {
     pintarFiltros();
+    ICAP.$('#cConteo').addEventListener('click', (e) => {
+      if (e.target.closest('.c-quitar')) { especial = null; pintar(); }
+    });
     form().addEventListener('input', () => { limite = PAGINA; pintar(); });
-    ICAP.$('#cVerMas').addEventListener('click', () => { limite += PAGINA; pintar(); });
+    ICAP.$('#cVerMas').addEventListener('click', () => { limite = Infinity; pintar(); });
     ICAP.$('#cVerMenos').addEventListener('click', () => {
       limite = PAGINA;
       pintar();
@@ -61,12 +78,12 @@ ICAP.clasica.proyectos = (() => {
     pintar();
   }
 
-  return { iniciar };
+  return { iniciar, filtrar };
 })();
 
 ICAP.clasica.servicios();
 ICAP.clasica.areas();
 ICAP.clasica.etapas();
-ICAP.clasica.logos();
 ICAP.clasica.proyectos.iniciar();
+ICAP.aliados.iniciar({ filtrar: ICAP.clasica.proyectos.filtrar });
 ICAP.iconos();
