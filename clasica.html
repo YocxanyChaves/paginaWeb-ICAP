@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asistencia técnica · ICAP</title>
+  <meta name="description" content="Asistencia técnica y acompañamiento del ICAP a instituciones públicas de Centroamérica y República Dominicana." />
+  <link rel="icon" type="image/png" href="assets/img/icap-logo-mark.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Open+Sans:wght@400;600;700&family=Raleway:wght@600;700;800;900&family=Yellowtail&display=swap" rel="stylesheet">
+
+  <!-- Versión clásica: misma estructura y datos que index.html, pero en texto,
+       como la página oficial, y casi sin animaciones. -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/clasica/base.css">
+  <link rel="stylesheet" href="css/clasica/secciones.css">
+  <link rel="stylesheet" href="css/clasica/proyectos.css">
+  <link rel="stylesheet" href="css/switch.css">
+
+  <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script defer src="js/datos/etiquetas.js"></script>
+  <script defer src="js/datos/servicios.js"></script>
+  <script defer src="js/datos/paises.js"></script>
+  <script defer src="js/datos/proyectos.js"></script>
+  <script defer src="js/datos/aliados.js"></script>
+  <script defer src="js/util.js"></script>
+  <script defer src="js/clasica/secciones.js"></script>
+  <script defer src="js/clasica/proyectos.js"></script>
+  <script defer src="js/switch.js"></script>
+</head>
+<body class="clasica">
+
+  <nav class="cambio-version" aria-label="Versión de la página">
+    <a href="index.html">Interactiva</a>
+    <a href="clasica.html" aria-current="page">Clásica</a>
+  </nav>
+
+  <!-- Encabezado -->
+  <section class="c-hero" id="inicio">
+    <div class="contenedor">
+      <img class="c-hero-logo" src="assets/img/icap-logo-mark.png" alt="ICAP">
+      <h1>Asistencia técnica</h1>
+      <p>
+        Nuestros servicios de asistencia técnica se ofrecen en toda la región, con especial énfasis en
+        Centroamérica y República Dominicana, contando con una red de especialistas a nivel mundial.
+      </p>
+      <dl class="c-cifras">
+        <div><dt>Proyectos ejecutados</dt><dd>124</dd></div>
+        <div><dt>Clientes institucionales</dt><dd>47</dd></div>
+        <div><dt>Países atendidos</dt><dd>18</dd></div>
+      </dl>
+      <small class="c-nota">Cifras oficiales · Resumen Estratégico ICAP</small>
+    </div>
+  </section>
+
+  <!-- Asistencia y acompañamiento técnico -->
+  <section class="c-bloque" id="servicios">
+    <div class="contenedor c-dos-columnas">
+      <header class="c-titulo">
+        <h2>Asistencia y acompañamiento técnico</h2>
+        <p>
+          El ICAP, a través de su Unidad de Asistencia Técnica, ha ejecutado proyectos de alto impacto con
+          instituciones clave del ecosistema de desarrollo empresarial centroamericano. El trabajo se distribuye
+          en diez líneas.
+        </p>
+      </header>
+      <ol class="c-servicios" id="cServicios"></ol>
+    </div>
+  </section>
+
+  <!-- Áreas de especialización -->
+  <section class="c-bloque c-gris" id="areas">
+    <div class="contenedor">
+      <header class="c-titulo c-centro">
+        <h2>Áreas de especialización</h2>
+        <p>
+          Un mundo complejo requiere de gobiernos y organizaciones inteligentes, con rápida capacidad de ajuste,
+          adaptación y resiliencia para mantener su valor estratégico. Nuestros temas apuntan a la matriz del futuro.
+        </p>
+      </header>
+      <ul class="c-areas" id="cAreas"></ul>
+    </div>
+  </section>
+
+  <!-- Generación de capacidades -->
+  <section class="c-bloque" id="etapas">
+    <div class="contenedor">
+      <header class="c-titulo c-centro">
+        <h2>Generación de capacidades</h2>
+        <p>Cada asistencia va del dato a la práctica, en cuatro etapas.</p>
+      </header>
+      <div class="c-diagrama" id="cDiagrama"></div>
+      <ol class="c-etapas" id="cEtapas"></ol>
+    </div>
+  </section>
+
+  <!-- Proyectos -->
+  <section class="c-bloque c-gris" id="proyectos">
+    <div class="contenedor">
+      <header class="c-titulo c-centro">
+        <h2>Proyectos de la última década</h2>
+      </header>
+      <form class="c-filtros" id="cFiltros" onsubmit="return false">
+        <label><span>Buscar</span><input type="search" name="texto" placeholder="Proyecto o cliente"></label>
+        <label><span>Área</span><select name="area"><option value="">Todas</option></select></label>
+        <label><span>Estado</span>
+          <select name="estado"><option value="todos">Todos</option><option value="curso">En curso</option><option value="fin">Finalizados</option></select>
+        </label>
+        <fieldset class="c-paises" id="cPaises"><legend>Países</legend></fieldset>
+      </form>
+      <p class="c-conteo" id="cConteo"></p>
+      <ul class="c-proyectos" id="cProyectos"></ul>
+      <div class="c-paginacion">
+        <button type="button" id="cVerMenos" hidden>Ver menos</button>
+        <button type="button" id="cVerMas" hidden>Ver más proyectos</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Organizaciones -->
+  <section class="c-bloque" id="aliados">
+    <div class="contenedor">
+      <header class="c-titulo c-centro">
+        <h2>Organizaciones con las que colaboramos</h2>
+        <p>ICAP apoya a los gobiernos nacionales y locales de Centroamérica y el Caribe y a múltiples organizaciones públicas y privadas.</p>
+      </header>
+      <ul class="c-logos" id="cLogos"></ul>
+    </div>
+  </section>
+
+  <!-- Cierre y contacto, como el pie de la página oficial -->
+  <section class="c-pie" id="contacto">
+    <div class="contenedor">
+      <p class="c-compromiso">
+        En el ICAP estamos comprometidos con la formación de excelencia del talento humano y la modernización de la
+        institucionalidad pública de Centroamérica y el Caribe. Nuestras oficinas centrales se encuentran en San José, Costa Rica.
+      </p>
+      <div class="c-contacto">
+        <div>
+          <h3>Costa Rica</h3>
+          <p>Oficinas Administrativas<br>100 metros sur y 75 metros oeste de la heladería Pops, Curridabat, San José.</p>
+        </div>
+        <div>
+          <h3>Teléfonos</h3>
+          <p><a href="tel:+50640012985">+(506) 4001-2985</a><br><a href="tel:+50686909583">+(506) 8690-9583</a></p>
+        </div>
+        <div>
+          <h3>Correo</h3>
+          <p><a href="mailto:info@icap.ac.cr">info@icap.ac.cr</a></p>
+        </div>
+      </div>
+      <small>Instituto Centroamericano de Administración Pública · Organismo del SICA</small>
+    </div>
+  </section>
+
+</body>
+</html>

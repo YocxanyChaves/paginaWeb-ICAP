@@ -1,0 +1,46 @@
+/* Servicios, áreas, etapas y organizaciones de la versión clásica: todo a la
+   vista, en texto. */
+
+/* Diez líneas: lista numerada con su descripción */
+.c-servicios { list-style: none; margin: 0; padding: 0; counter-reset: linea; border-top: 1px solid var(--borde); }
+.c-servicios li { counter-increment: linea; display: grid; grid-template-columns: 44px 1fr; gap: 4px 14px; padding: 18px 0; border-bottom: 1px solid var(--borde); }
+.c-servicios li::before {
+  content: counter(linea, decimal-leading-zero); grid-row: span 2;
+  font-family: var(--fuente-mono); font-size: 13px; font-weight: 600; color: var(--azul); padding-top: 2px;
+}
+.c-servicios h3 { font-size: 16px; font-weight: 700; color: var(--navy); }
+.c-servicios p { font-size: 14px; line-height: 1.6; color: var(--texto-suave); }
+
+/* Catorce áreas: grilla de fichas sencillas */
+.c-areas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.c-areas li { background: #fff; border: 1px solid var(--borde); border-top: 3px solid var(--c); border-radius: 12px; padding: 18px; }
+.c-areas .c-area-cabeza { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.c-areas svg { width: 18px; height: 18px; color: var(--c); flex: none; }
+.c-areas h3 { font-size: 15px; font-weight: 700; color: var(--navy); }
+.c-areas p { font-size: 13.5px; line-height: 1.6; color: var(--texto-suave); }
+.c-areas small { display: block; margin-top: 10px; font-family: var(--fuente-mono); font-size: 11px; color: var(--azul); }
+
+/* Diagrama estático como el de la página oficial */
+.c-diagrama { position: relative; aspect-ratio: 500 / 200; max-width: 620px; margin: 0 auto 20px; }
+.c-diagrama > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.c-diagrama > svg path { fill: none; stroke: #8C96A0; stroke-width: 7; }
+.c-bolita {
+  position: absolute; top: 50%; width: 15%; aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%);
+  display: grid; place-items: center; background: var(--c); color: #fff;
+}
+.c-bolita svg { width: 42%; height: 42%; stroke-width: 2.2; }
+
+.c-etapas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.c-etapas > li { border-top: 3px solid var(--c); padding-top: 16px; }
+.c-etapas small { font-family: var(--fuente-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-suave); }
+.c-etapas h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin: 4px 0 8px; }
+.c-etapas p { font-size: 14px; line-height: 1.6; color: var(--texto-suave); }
+.c-etapas ul { margin: 12px 0 0; padding-left: 18px; font-size: 13.5px; line-height: 1.7; color: var(--texto); }
+@media (max-width: 900px) { .c-etapas { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .c-etapas { grid-template-columns: 1fr; } }
+
+/* Organizaciones: grilla de logos como la oficial, a color al pasar el mouse */
+.c-logos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
+.c-logos li { aspect-ratio: 4 / 3; display: grid; place-items: center; padding: 14px; border: 1px solid var(--borde); border-radius: 12px; background: #fff; }
+.c-logos img { max-width: 100%; max-height: 72px; object-fit: contain; filter: grayscale(1); opacity: .75; transition: filter .25s, opacity .25s; }
+.c-logos li:hover img { filter: none; opacity: 1; }

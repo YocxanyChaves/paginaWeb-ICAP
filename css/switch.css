@@ -1,0 +1,22 @@
+/* Switch flotante para cambiar entre la versión interactiva y la clásica.
+   Lo usan las dos páginas. */
+.cambio-version {
+  position: fixed; z-index: 70; top: 16px; right: 16px;
+  display: flex; padding: 4px; border-radius: 999px;
+  background: rgba(0, 31, 61, .82); backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px -10px rgba(0, 31, 61, .6), inset 0 0 0 1px rgba(255, 255, 255, .15);
+}
+.cambio-version a {
+  position: relative; z-index: 1; padding: 7px 14px; border-radius: 999px; text-decoration: none;
+  font-family: var(--fuente-titulo); font-weight: 700; font-size: 12.5px; color: var(--celeste);
+  transition: color .25s;
+}
+.cambio-version a:hover { color: #fff; }
+.cambio-version a[aria-current="page"] { color: #fff; }
+.cambio-version::before {
+  content: ''; position: absolute; top: 4px; bottom: 4px; left: var(--x, 4px); width: var(--ancho, 0);
+  border-radius: 999px; background: var(--azul); box-shadow: 0 4px 12px -4px rgba(0, 119, 200, .8);
+}
+@media (max-width: 600px) {
+  .cambio-version { top: auto; bottom: 14px; right: 50%; transform: translateX(50%); }
+}
