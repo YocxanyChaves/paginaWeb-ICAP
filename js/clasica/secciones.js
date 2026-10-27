@@ -2,19 +2,39 @@
    mismos datos de la versión interactiva (js/datos), sin animaciones. */
 ICAP.clasica = {};
 
+// Tarjetas que dan vuelta al pasar el mouse, como las de "Modelo educativo"
+// en icap.ac.cr. En pantallas táctiles dan vuelta al tocarlas.
 ICAP.clasica.servicios = () => {
-  ICAP.$('#cServicios').innerHTML = ICAP.SERVICIOS.map((s) => `
-    <li><h3>${s.nombre}</h3><p>${s.desc}</p></li>`).join('');
+  const lista = ICAP.$('#cServicios');
+  lista.innerHTML = ICAP.SERVICIOS.map((s, i) => `
+    <li class="c-tarjeta" tabindex="0">
+      <div class="c-tarjeta-giro">
+        <div class="c-tarjeta-frente">
+          <span class="c-tarjeta-num">${String(i + 1).padStart(2, '0')}</span>
+          <i data-lucide="${s.ic}"></i>
+          <h3>${s.nombre}</h3>
+        </div>
+        <div class="c-tarjeta-dorso">
+          <p>${s.desc}</p>
+          <ul>${s.incluye.map((x) => `<li>${x}</li>`).join('')}</ul>
+        </div>
+      </div>
+    </li>`).join('');
+  lista.addEventListener('touchstart', (e) => {
+    const tarjeta = e.target.closest('.c-tarjeta');
+    if (tarjeta) tarjeta.classList.toggle('volteada');
+  }, { passive: true });
 };
 
+// Áreas como bloques de texto a todo el ancho, una debajo de la otra.
 ICAP.clasica.areas = () => {
   ICAP.$('#cAreas').innerHTML = ICAP.ETIQUETAS.map((a) => {
     const n = ICAP.proyectosDeEtiquetas([a.id]).length;
     return `
       <li style="--c:${a.color}">
-        <div class="c-area-cabeza"><i data-lucide="${a.ic}"></i><h3>${a.nombre}</h3></div>
+        <h3>${a.nombre}</h3>
         <p>${a.desc}</p>
-        <small>${n} ${n === 1 ? 'proyecto' : 'proyectos'}</small>
+        <div class="c-area-cifra"><strong>${n}</strong>${n === 1 ? 'proyecto ejecutado' : 'proyectos ejecutados'}</div>
       </li>`;
   }).join('');
 };
@@ -38,7 +58,10 @@ ICAP.clasica.etapas = () => {
     </li>`).join('');
 };
 
+// Tira continua de logos a color. Va dos veces seguida para que, al correrse
+// la mitad, empalme sin que se note el salto.
 ICAP.clasica.logos = () => {
-  ICAP.$('#cLogos').innerHTML = ICAP.ALIADOS.map((a) => `
-    <li title="${a.nombre}"><img src="assets/logos/${a.logo}.png" alt="${a.sigla} — ${a.nombre}" loading="lazy"></li>`).join('');
+  const logos = ICAP.ALIADOS.map((a) => `
+    <li title="${a.nombre}"><img src="assets/logos/${a.logo}.png" alt="${a.sigla} — ${a.nombre}"></li>`).join('');
+  ICAP.$('#cLogos').innerHTML = logos + logos.replace(/<li /g, '<li aria-hidden="true" ');
 };

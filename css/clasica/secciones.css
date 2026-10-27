@@ -1,24 +1,45 @@
 /* Servicios, áreas, etapas y organizaciones de la versión clásica: todo a la
    vista, en texto. */
 
-/* Diez líneas: lista numerada con su descripción */
-.c-servicios { list-style: none; margin: 0; padding: 0; counter-reset: linea; border-top: 1px solid var(--borde); }
-.c-servicios li { counter-increment: linea; display: grid; grid-template-columns: 44px 1fr; gap: 4px 14px; padding: 18px 0; border-bottom: 1px solid var(--borde); }
-.c-servicios li::before {
-  content: counter(linea, decimal-leading-zero); grid-row: span 2;
-  font-family: var(--fuente-mono); font-size: 13px; font-weight: 600; color: var(--azul); padding-top: 2px;
+/* Diez líneas: tarjetas que dan vuelta al pasar el mouse (o al tocarlas),
+   como las de "Modelo educativo" de icap.ac.cr: frente gris claro con el
+   título en azul, dorso azul con la descripción. */
+.c-servicios { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+.c-tarjeta { height: 250px; perspective: 1000px; outline: none; }
+.c-tarjeta-giro { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .6s ease; }
+.c-tarjeta:hover .c-tarjeta-giro, .c-tarjeta:focus-visible .c-tarjeta-giro, .c-tarjeta.volteada .c-tarjeta-giro { transform: rotateY(180deg); }
+.c-tarjeta-frente, .c-tarjeta-dorso {
+  position: absolute; inset: 0; border-radius: 12px; padding: 22px 18px;
+  -webkit-backface-visibility: hidden; backface-visibility: hidden;
 }
-.c-servicios h3 { font-size: 16px; font-weight: 700; color: var(--navy); }
-.c-servicios p { font-size: 14px; line-height: 1.6; color: var(--texto-suave); }
+.c-tarjeta-frente {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center;
+  background: #F7F7F7; border: 1px solid var(--borde);
+}
+.c-tarjeta-num { position: absolute; top: 14px; left: 16px; font-family: var(--fuente-mono); font-size: 12px; font-weight: 600; color: var(--texto-suave); }
+.c-tarjeta-frente svg { width: 30px; height: 30px; color: #0084C9; stroke-width: 1.8; }
+.c-tarjeta-frente h3 { font-size: 15.5px; font-weight: 700; line-height: 1.35; color: #0084C9; }
+.c-tarjeta-dorso {
+  transform: rotateY(180deg); overflow: auto; color: #fff;
+  background: linear-gradient(160deg, #0084C9 0%, var(--navy) 100%);
+}
+.c-tarjeta-dorso p { font-size: 13px; line-height: 1.55; }
+.c-tarjeta-dorso ul { margin: 10px 0 0; padding-left: 16px; font-size: 12.5px; line-height: 1.6; color: #D9EAF8; }
+@media (max-width: 1100px) { .c-servicios { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 700px) { .c-servicios { grid-template-columns: repeat(2, 1fr); } .c-tarjeta { height: 260px; } }
+@media (max-width: 440px) { .c-servicios { grid-template-columns: 1fr; } .c-tarjeta { height: 175px; } }
 
-/* Catorce áreas: grilla de fichas sencillas */
-.c-areas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
-.c-areas li { background: #fff; border: 1px solid var(--borde); border-top: 3px solid var(--c); border-radius: 12px; padding: 18px; }
-.c-areas .c-area-cabeza { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.c-areas svg { width: 18px; height: 18px; color: var(--c); flex: none; }
-.c-areas h3 { font-size: 15px; font-weight: 700; color: var(--navy); }
-.c-areas p { font-size: 13.5px; line-height: 1.6; color: var(--texto-suave); }
-.c-areas small { display: block; margin-top: 10px; font-family: var(--fuente-mono); font-size: 11px; color: var(--azul); }
+/* Catorce áreas como bloques de texto a todo el ancho, una debajo de la otra,
+   separadas por una línea fina. */
+.c-areas { list-style: none; margin: 0; padding: 0; }
+.c-areas li { padding: 26px 0; border-top: 1px solid var(--borde); }
+.c-areas li:last-child { border-bottom: 1px solid var(--borde); }
+.c-areas h3 { font-size: 20px; font-weight: 700; color: var(--navy); }
+.c-areas p { font-size: 15px; line-height: 1.65; color: var(--texto-suave); margin-top: 6px; }
+/* Cantidad de proyectos, grande y del color del área */
+.c-area-cifra { display: flex; align-items: baseline; gap: 8px; margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--texto-suave); }
+.c-area-cifra strong { font-family: var(--fuente-titulo); font-size: 2.4rem; font-weight: 800; line-height: 1; color: var(--c); }
+@media (max-width: 600px) { .c-areas li { padding: 20px 0; } }
 
 /* Diagrama estático como el de la página oficial */
 .c-diagrama { position: relative; aspect-ratio: 500 / 200; max-width: 620px; margin: 0 auto 20px; }
@@ -39,8 +60,14 @@
 @media (max-width: 900px) { .c-etapas { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .c-etapas { grid-template-columns: 1fr; } }
 
-/* Organizaciones: grilla de logos como la oficial, a color al pasar el mouse */
-.c-logos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
-.c-logos li { aspect-ratio: 4 / 3; display: grid; place-items: center; padding: 14px; border: 1px solid var(--borde); border-radius: 12px; background: #fff; }
-.c-logos img { max-width: 100%; max-height: 72px; object-fit: contain; filter: grayscale(1); opacity: .75; transition: filter .25s, opacity .25s; }
-.c-logos li:hover img { filter: none; opacity: 1; }
+/* Organizaciones: tira continua de logos a color que va pasando sola */
+.c-tira {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.c-logos { list-style: none; margin: 0; padding: 0; display: flex; width: max-content; animation: c-tira 70s linear infinite; }
+.c-logos li { flex: none; width: 150px; height: 100px; margin-right: 18px; display: grid; place-items: center; padding: 12px; border: 1px solid var(--borde); border-radius: 12px; background: #fff; }
+.c-logos img { max-width: 100%; max-height: 72px; object-fit: contain; }
+@keyframes c-tira { to { transform: translateX(-50%); } }
+@media (max-width: 600px) { .c-logos li { width: 120px; height: 84px; margin-right: 12px; } }

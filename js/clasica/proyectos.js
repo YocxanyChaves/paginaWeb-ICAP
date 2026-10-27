@@ -1,8 +1,8 @@
 /* Proyectos en la versión clásica: un formulario de filtros (texto, área,
-   estado y países) y una lista de a 5. Con varios países marcados salen sólo
+   estado y países) y una lista de a 4. Con varios países marcados salen sólo
    los proyectos que los abarcan a todos, igual que en la versión interactiva. */
 ICAP.clasica.proyectos = (() => {
-  const PAGINA = 5;
+  const PAGINA = 4;
   let limite = PAGINA;
   const form = () => ICAP.$('#cFiltros');
 

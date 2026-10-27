@@ -15,8 +15,6 @@ body.clasica { background: #fff; color: var(--texto); }
 .c-centro { text-align: center; max-width: 720px; margin: 0 auto 44px; }
 .c-centro h2::after { margin-inline: auto; }
 
-.c-dos-columnas { display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: start; }
-@media (max-width: 900px) { .c-dos-columnas { grid-template-columns: 1fr; gap: 28px; } }
 
 .clasica a { color: var(--azul); text-decoration: none; }
 .clasica a:hover { text-decoration: underline; }
