@@ -1,0 +1,77 @@
+/* Áreas de especialización: la galaxia de Valores del brochure (ValuesWheel).
+   Las áreas orbitan el logo; cada cierto tiempo una viaja al centro, hace
+   "boop" y su ficha aparece a la par. */
+.areas { overflow: hidden; }
+.estrellas { position: absolute; inset: 0; pointer-events: none; }
+.estrellas span { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, .7); animation: titilar 3.5s ease-in-out infinite; }
+@keyframes titilar { 50% { opacity: .2; } }
+
+.galaxia-y-ficha { display: grid; grid-template-columns: 7fr 5fr; gap: 32px; align-items: center; }
+
+.galaxia { position: relative; width: min(460px, 100%); aspect-ratio: 1; margin-inline: auto; }
+
+.nucleo { position: absolute; left: 50%; top: 50%; width: 22%; aspect-ratio: 1; transform: translate(-50%, -50%); z-index: 1; }
+.nucleo-halo { position: absolute; inset: -14px; border-radius: 50%; background: var(--azul); filter: blur(18px); opacity: .35; transition: opacity .3s; }
+.nucleo-logo {
+  position: relative; display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%;
+  background: #fff; box-shadow: 0 0 0 4px rgba(0, 119, 200, .3), 0 14px 30px -10px rgba(0, 51, 102, .5);
+  transition: transform .3s;
+}
+.nucleo-logo img { width: 66%; }
+.nucleo.pulso .nucleo-halo { opacity: .75; }
+.nucleo.pulso .nucleo-logo { transform: scale(1.08); }
+/* Rayito que recorre el borde del logo cuando un área llega al centro */
+.nucleo-destello {
+  position: absolute; inset: -12px; border-radius: 50%; pointer-events: none;
+  background: conic-gradient(from 0deg, transparent 0deg, transparent 250deg, rgba(143, 211, 255, .15) 270deg, #bfe6ff 300deg, #fff 320deg, #8fd3ff 336deg, transparent 360deg);
+  -webkit-mask-image: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+  mask-image: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+  animation: destello .9s var(--suave-salida) forwards;
+}
+@keyframes destello { from { transform: rotate(0); opacity: 1; } to { transform: rotate(360deg); opacity: 0; } }
+
+.planeta { position: absolute; z-index: 2; padding: 0; border: 0; background: none; transform: translate(-50%, -50%); }
+.planeta-bola {
+  display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; color: #fff;
+  background: var(--c); border: 2px solid rgba(255, 255, 255, .7); box-shadow: 0 6px 14px -6px rgba(0, 51, 102, .6);
+  transition: width 1.1s var(--suave-salida), height 1.1s var(--suave-salida), box-shadow .3s;
+}
+.planeta-bola svg { width: 18px; height: 18px; }
+.planeta.activo .planeta-bola { border-color: #fff; box-shadow: 0 0 0 3px rgba(0, 119, 200, .25), 0 10px 22px -6px var(--c); }
+.planeta.en-centro .planeta-bola { width: 54px; height: 54px; }
+.planeta-nombre {
+  position: absolute; left: 50%; top: calc(100% + 6px); transform: translateX(-50%); white-space: nowrap;
+  font-size: 11px; font-weight: 700; color: var(--navy); background: rgba(255, 255, 255, .9); padding: 2px 8px; border-radius: 999px;
+  opacity: 0; pointer-events: none; transition: opacity .2s;
+}
+.planeta:hover .planeta-nombre { opacity: 1; }
+.planeta.en-centro .planeta-nombre { opacity: 0; }
+
+.ficha-area {
+  border-radius: 26px; padding: 26px; color: #fff; text-align: left;
+  background:
+    radial-gradient(65% 70% at 14% -8%, rgba(255, 255, 255, .35), transparent 42%),
+    linear-gradient(160deg, #0090DD 0%, #0068AE 48%, #013A63 100%);
+  border: 1px solid rgba(255, 255, 255, .15);
+  box-shadow: 0 30px 50px -30px rgba(0, 51, 102, .7);
+  animation: entraFicha .55s var(--suave-salida) both;
+}
+.ficha-area-cabeza { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.ficha-area-icono { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 14px; background: var(--c); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .4); }
+.ficha-area-icono svg { width: 19px; height: 19px; }
+.ficha-area small { display: block; font-family: var(--fuente-mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255, 255, 255, .8); }
+.ficha-area h3 { font-size: 1.25rem; font-weight: 800; }
+.ficha-area p { line-height: 1.6; font-size: 14px; color: rgba(255, 255, 255, .92); }
+.ficha-area-cifras { display: flex; gap: 10px; margin: 16px 0; }
+.ficha-area-cifras div { flex: 1; padding: 10px; border-radius: 14px; background: rgba(0, 31, 61, .3); text-align: center; }
+.ficha-area-cifras strong { display: block; font-family: var(--fuente-titulo); font-size: 1.5rem; font-weight: 900; }
+.ficha-area-cifras span { font-size: 11px; color: var(--celeste-claro); }
+.ficha-area .ver-proyectos { margin-top: 0; }
+
+@media (max-width: 900px) {
+  .galaxia-y-ficha { grid-template-columns: 1fr; }
+  .galaxia { width: min(360px, 100%); }
+  .planeta-bola { width: 30px; height: 30px; border-width: 1.5px; }
+  .planeta-bola svg { width: 14px; height: 14px; }
+  .planeta.en-centro .planeta-bola { width: 42px; height: 42px; }
+}

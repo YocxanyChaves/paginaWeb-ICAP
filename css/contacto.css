@@ -1,0 +1,22 @@
+/* Cierre con los datos de contacto de la página oficial. */
+.cierre {
+  position: relative; overflow: hidden; border-radius: 32px; color: #fff; padding: 52px;
+  background:
+    radial-gradient(50% 80% at 100% 0%, rgba(79, 178, 242, .45), transparent 60%),
+    linear-gradient(140deg, var(--navy) 0%, var(--azul-medio) 60%, var(--azul) 100%);
+  display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: center;
+  box-shadow: 0 40px 80px -40px rgba(0, 51, 102, .8);
+}
+.cierre h2 { font-family: var(--fuente-script); font-weight: 400; font-size: clamp(2.1rem, 4vw, 3rem); line-height: 1.15; margin: 16px 0 14px; }
+.cierre p { color: #D9EAF8; line-height: 1.7; }
+.contacto { display: grid; gap: 10px; }
+.contacto a {
+  display: flex; gap: 14px; align-items: center; text-decoration: none; color: #fff; padding: 12px 16px; border-radius: 999px;
+  background: rgba(0, 0, 0, .2); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); transition: background .2s, transform .3s var(--resorte);
+}
+.contacto a:hover { background: rgba(255, 255, 255, .12); transform: translateX(4px); }
+.contacto .ic { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .12); flex: none; }
+.contacto .ic svg { width: 17px; height: 17px; }
+.contacto small { display: block; font-family: var(--fuente-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--celeste); }
+.contacto span { font-size: 14px; font-weight: 600; }
+@media (max-width: 860px) { .cierre { grid-template-columns: 1fr; padding: 32px 22px; border-radius: 24px; } }

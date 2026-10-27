@@ -1,0 +1,93 @@
+/* Hero: el mismo del brochure (Hero.jsx) — degradado institucional, resplandor
+   que respira, tres ondas que avanzan y partículas que suben. Las cifras van
+   directo sobre el fondo, con su anillo, conteo y "boop" final. */
+.hero {
+  position: relative; overflow: hidden; color: #fff; text-align: center;
+  min-height: 680px; padding: 80px 0 48px; display: flex; align-items: center;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--azul-medio) 50%, var(--azul) 100%);
+}
+.hero-resplandor {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle at 50% 20%, rgba(255, 255, 255, .18), rgba(0, 119, 200, 0) 65%);
+  animation: resplandor 14s ease-in-out infinite;
+}
+@keyframes resplandor { 50% { transform: translate(2.5%, -3%) scale(1.06); } }
+
+/* Ondas: cada svg mide 200% con el trazo repetido, así trasladar -50% cierra el loop. */
+.hero-fondo { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.onda-capa { position: absolute; inset: 0; }
+.onda-capa svg { position: absolute; top: 0; left: 0; width: 200%; height: 100%; }
+.onda-capa path { fill: none; stroke: #fff; }
+.deriva-rapida { animation: deriva 4.5s linear infinite; }
+.deriva-lenta { animation: deriva 9s linear infinite; }
+.respiro-rapido { animation: respiro 3.2s ease-in-out infinite; }
+.respiro-lento { animation: respiro 6.5s ease-in-out -4s infinite; }
+@keyframes deriva { to { transform: translateX(-50%); } }
+@keyframes respiro { 50% { transform: translateY(9px); } }
+
+.particula { position: absolute; bottom: 0; border-radius: 50%; background: #fff; filter: blur(.5px); animation: particula ease-in-out infinite; }
+@keyframes particula {
+  0% { transform: translateY(0); opacity: 0; }
+  12% { opacity: .55; }
+  85% { opacity: .35; }
+  100% { transform: translateY(-170px); opacity: 0; }
+}
+
+/* Contenido, con entrada escalonada */
+.hero-contenido { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+.sube { animation: sube .7s var(--suave-salida) both; }
+@keyframes sube { from { opacity: 0; transform: translateY(18px); } }
+
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border-radius: 999px;
+  background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .15);
+  color: var(--celeste); font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+}
+.hero-kicker i { position: relative; width: 6px; height: 6px; border-radius: 50%; background: var(--azul); }
+.hero-kicker i::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: var(--azul); animation: ping 1s cubic-bezier(0, 0, .2, 1) infinite; }
+@keyframes ping { 75%, 100% { transform: scale(2.2); opacity: 0; } }
+
+.emblema { position: relative; width: 80px; height: 80px; margin: 30px 0 28px; }
+.emblema-halo { position: absolute; inset: 0; border-radius: 50%; background: rgba(255, 255, 255, .25); filter: blur(12px); animation: halo 2.6s ease-in-out infinite; }
+@keyframes halo { 0%, 100% { opacity: .45; transform: scale(1); } 50% { opacity: .7; transform: scale(1.12); } }
+.emblema-anillo { position: absolute; inset: -10px; border-radius: 50%; border: 1px dashed rgba(255, 255, 255, .3); animation: girar 16s linear infinite; }
+.emblema-logo {
+  position: relative; display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%;
+  background: #fff; box-shadow: 0 0 0 4px rgba(255, 255, 255, .25), 0 10px 20px -6px rgba(0, 0, 0, .3);
+}
+.emblema-logo img { width: 68%; }
+
+.hero h1 { font-size: clamp(2.6rem, 7vw, 4.5rem); font-weight: 800; letter-spacing: -.01em; line-height: 1.05; margin-bottom: 20px; }
+.hero-texto { max-width: 580px; line-height: 1.7; color: var(--celeste); font-size: clamp(.95rem, 1.5vw, 1.05rem); }
+
+/* Cifras directo sobre el fondo */
+.cifras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: min(620px, 100%); margin-top: 52px; }
+.cifra { display: flex; flex-direction: column; align-items: center; }
+.cifra-anillo { position: relative; width: 40px; height: 40px; margin-bottom: 8px; }
+.cifra-anillo svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+.cifra-anillo circle { fill: none; stroke-width: 3; }
+.cifra-anillo .pista { stroke: rgba(255, 255, 255, .15); }
+.cifra-anillo .avance { stroke: #fff; stroke-linecap: round; }
+.cifra-icono { position: absolute; inset: 0; display: grid; place-items: center; color: var(--celeste); }
+.cifra-icono svg { position: static; width: 16px; height: 16px; transform: none; }
+.cifra-numero { font-family: var(--fuente-titulo); font-weight: 800; font-size: clamp(2.2rem, 6vw, 3.2rem); line-height: 1; font-variant-numeric: tabular-nums; text-shadow: 0 4px 20px rgba(0, 31, 61, .35); }
+.cifra-nombre { font-family: var(--fuente-titulo); font-weight: 700; font-size: 14px; margin-top: 4px; }
+.cifra-sub { font-size: 12px; color: var(--celeste); }
+.cifra-barras { display: flex; align-items: flex-end; gap: 3px; height: 22px; margin-top: 10px; }
+.cifra-barras span { width: 5px; height: 10%; border-radius: 3px; background: #fff; transition: height .5s var(--suave-salida); }
+.cifras-nota { grid-column: 1 / -1; margin-top: 34px; font-family: var(--fuente-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: rgba(217, 234, 248, .7); }
+
+.desliza {
+  display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: 44px; text-decoration: none;
+  font-family: var(--fuente-mono); font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--celeste);
+}
+.desliza svg { width: 16px; height: 16px; animation: rebote 1s infinite; }
+@keyframes rebote { 0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(.8, 0, 1, 1); } 50% { transform: none; animation-timing-function: cubic-bezier(0, 0, .2, 1); } }
+
+@media (max-width: 600px) {
+  .hero { min-height: 0; padding: 56px 0 32px; }
+  .emblema { width: 64px; height: 64px; }
+  .cifras { gap: 4px; }
+  .cifra-nombre { font-size: 12.5px; }
+  .cifra-sub { font-size: 10.5px; }
+}

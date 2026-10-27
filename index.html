@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asistencia técnica · ICAP</title>
+  <meta name="description" content="Asistencia técnica y acompañamiento del ICAP a instituciones públicas de Centroamérica y República Dominicana." />
+  <link rel="icon" type="image/png" href="assets/img/icap-logo-mark.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Open+Sans:wght@400;600;700&family=Raleway:wght@600;700;800;900&family=Yellowtail&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/servicios.css">
+  <link rel="stylesheet" href="css/etapas.css">
+  <link rel="stylesheet" href="css/proyectos.css">
+  <link rel="stylesheet" href="css/areas.css">
+  <link rel="stylesheet" href="css/aliados.css">
+  <link rel="stylesheet" href="css/contacto.css">
+
+  <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script defer src="js/datos/etiquetas.js"></script>
+  <script defer src="js/datos/servicios.js"></script>
+  <script defer src="js/datos/paises.js"></script>
+  <script defer src="js/datos/proyectos.js"></script>
+  <script defer src="js/datos/aliados.js"></script>
+  <script defer src="js/util.js"></script>
+  <script defer src="js/hero.js"></script>
+  <script defer src="js/servicios.js"></script>
+  <script defer src="js/etapas.js"></script>
+  <script defer src="js/proyectos.js"></script>
+  <script defer src="js/areas.js"></script>
+  <script defer src="js/aliados.js"></script>
+  <script defer src="js/main.js"></script>
+</head>
+<body>
+
+  <!-- Hero: el mismo del brochure (degradado, resplandor, ondas y partículas) -->
+  <section class="hero" id="inicio">
+    <div class="hero-resplandor" aria-hidden="true"></div>
+    <div class="hero-fondo" aria-hidden="true">
+      <div class="onda-capa respiro-rapido">
+        <svg class="deriva-rapida" viewBox="0 0 1600 600" preserveAspectRatio="none">
+          <path d="M0 130 C 200 55, 600 205, 800 130 C 1000 55, 1400 205, 1600 130" stroke-width="1.8" opacity=".24" />
+        </svg>
+      </div>
+      <div class="onda-capa respiro-rapido">
+        <svg class="deriva-rapida" viewBox="0 0 1600 600" preserveAspectRatio="none">
+          <path d="M0 480 C 220 545, 580 415, 800 480 C 1020 545, 1380 415, 1600 480" stroke-width="1.6" opacity=".18" />
+        </svg>
+      </div>
+      <div class="onda-capa respiro-lento" style="opacity:.09">
+        <svg class="deriva-lenta" viewBox="0 0 1600 600" preserveAspectRatio="none">
+          <path d="M0 300 C 250 260, 550 340, 800 300 C 1050 260, 1350 340, 1600 300" stroke-width="1.2" />
+        </svg>
+      </div>
+      <span class="particula" style="left:8%;width:6px;height:6px;animation-duration:9s;animation-delay:-1s"></span>
+      <span class="particula" style="left:22%;width:4px;height:4px;animation-duration:12s;animation-delay:-4.5s"></span>
+      <span class="particula" style="left:38%;width:5px;height:5px;animation-duration:10.5s;animation-delay:-7s"></span>
+      <span class="particula" style="left:58%;width:7px;height:7px;animation-duration:13s;animation-delay:-2.5s"></span>
+      <span class="particula" style="left:74%;width:4px;height:4px;animation-duration:9.5s;animation-delay:-8s"></span>
+      <span class="particula" style="left:88%;width:6px;height:6px;animation-duration:11.5s;animation-delay:-3.5s"></span>
+    </div>
+
+    <div class="contenedor hero-contenido">
+      <span class="hero-kicker sube" style="animation-delay:90ms"><i></i>Unidad de Asistencia Técnica</span>
+      <div class="emblema sube" style="animation-delay:170ms">
+        <span class="emblema-halo"></span>
+        <span class="emblema-anillo"></span>
+        <span class="emblema-logo"><img src="assets/img/icap-logo-mark.png" alt="ICAP" draggable="false"></span>
+      </div>
+      <h1 class="sube" style="animation-delay:240ms">Asistencia técnica</h1>
+      <p class="hero-texto sube" style="animation-delay:380ms">
+        Nuestros servicios de asistencia técnica se ofrecen en toda la región, con especial énfasis en
+        Centroamérica y República Dominicana, contando con una red de especialistas a nivel mundial.
+      </p>
+      <div class="cifras sube" id="cifras" style="animation-delay:450ms"></div>
+      <a class="desliza sube" href="#servicios" style="animation-delay:520ms">Deslizá<i data-lucide="chevron-down"></i></a>
+    </div>
+  </section>
+
+  <!-- Las diez líneas de trabajo -->
+  <section class="bloque" id="servicios">
+    <div class="contenedor">
+      <header class="encabezado revelar">
+        <span class="kicker">Asistencia y acompañamiento técnico</span>
+        <h2>¿En qué podemos acompañar a su institución?</h2>
+        <p>
+          El ICAP, a través de su Unidad de Asistencia Técnica, ha ejecutado proyectos de alto impacto con
+          instituciones clave del ecosistema de desarrollo centroamericano. Elija una línea de trabajo.
+        </p>
+      </header>
+      <div class="servicios revelar">
+        <div class="capsulas-servicios" id="listaServicios"></div>
+        <article class="ficha-servicio" id="fichaServicio" aria-live="polite"></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Áreas de especialización: la esfera orbital de Valores del brochure -->
+  <section class="bloque oscuro areas" id="areas">
+    <div class="estrellas" id="estrellas" aria-hidden="true"></div>
+    <div class="contenedor">
+      <header class="encabezado revelar">
+        <span class="kicker kicker-oscuro">Nuestros temas apuntan a la matriz del futuro</span>
+        <h2>Áreas de especialización</h2>
+        <p>
+          Un mundo complejo requiere de gobiernos y organizaciones inteligentes, con rápida capacidad de ajuste,
+          adaptación y resiliencia para mantener su valor estratégico.
+        </p>
+      </header>
+      <div class="galaxia-y-ficha revelar">
+        <div class="galaxia" id="galaxia">
+          <div class="nucleo" id="nucleo">
+            <span class="nucleo-halo"></span>
+            <span class="nucleo-logo"><img src="assets/img/icap-logo-mark.png" alt="ICAP" draggable="false"></span>
+          </div>
+        </div>
+        <div class="ficha-area-hueco" id="fichaArea" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Generación de capacidades -->
+  <section class="bloque" id="etapas">
+    <div class="contenedor">
+      <header class="encabezado revelar">
+        <span class="kicker">Cómo trabajamos</span>
+        <h2>Generación de capacidades</h2>
+        <p>Cada asistencia va del dato a la práctica: acompañamos a la institución hasta que el cambio se adopta.</p>
+      </header>
+      <div class="etapas revelar">
+        <div class="ruta" id="ruta"></div>
+        <div class="carrusel-etapas" id="carruselEtapas"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Explorador de proyectos -->
+  <section class="bloque oscuro" id="proyectos">
+    <div class="contenedor">
+      <header class="encabezado revelar">
+        <span class="kicker kicker-oscuro">Experiencia comprobada</span>
+        <h2>Proyectos de la última década</h2>
+      </header>
+      <div class="explorador revelar">
+        <div class="explorador-fila">
+          <label class="buscador">
+            <i data-lucide="search"></i>
+            <input id="buscar" type="search" placeholder="Buscar proyecto o cliente…" autocomplete="off">
+          </label>
+          <div class="segmentado" id="estado" role="group" aria-label="Estado">
+            <button type="button" data-v="todos">Todos</button>
+            <button type="button" data-v="curso">En curso</button>
+            <button type="button" data-v="fin">Finalizados</button>
+          </div>
+        </div>
+        <div class="capsulas-areas" id="filtroAreas" role="group" aria-label="Áreas de especialización"></div>
+        <div class="banderas" id="filtroPaises" role="group" aria-label="Filtrar por país"></div>
+      </div>
+      <div class="resumen">
+        <p id="conteo"></p>
+        <div id="filtroEspecial"></div>
+        <button type="button" class="limpiar" id="limpiar" hidden><i data-lucide="rotate-ccw"></i>Limpiar filtros</button>
+      </div>
+      <div class="grilla" id="grilla"></div>
+      <div class="paginacion">
+        <button type="button" class="boton" id="verMenos" hidden><i data-lucide="chevron-up"></i>Ver menos</button>
+        <button type="button" class="boton" id="verMas" hidden>Ver más<i data-lucide="chevron-down"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Organizaciones con las que colaboramos -->
+  <section class="bloque aliados" id="aliados">
+    <div class="contenedor">
+      <header class="encabezado revelar">
+        <span class="kicker">Organizaciones con las que colaboramos</span>
+        <h2>Una red regional e internacional</h2>
+        <p>ICAP apoya a los gobiernos nacionales y locales de Centroamérica y el Caribe y a múltiples organizaciones públicas y privadas. Arrastre la tira y toque un logo.</p>
+      </header>
+    </div>
+    <div class="tira" id="tira">
+      <div class="tira-pista" id="pistaAliados"></div>
+    </div>
+    <div class="nota-aliado" id="notaAliado" role="dialog" aria-modal="false" hidden></div>
+  </section>
+
+  <!-- Cierre -->
+  <section class="bloque oscuro" id="contacto">
+    <div class="contenedor">
+      <div class="cierre revelar">
+        <div>
+          <span class="kicker kicker-oscuro">Hablemos</span>
+          <h2>¿Su institución necesita acompañamiento técnico?</h2>
+          <p>
+            En el ICAP estamos comprometidos con la formación de excelencia del talento humano y la modernización
+            de la institucionalidad pública de Centroamérica y el Caribe. Nuestras oficinas centrales se encuentran
+            en San José, Costa Rica.
+          </p>
+        </div>
+        <div class="contacto">
+          <a href="mailto:info@icap.ac.cr"><span class="ic"><i data-lucide="mail"></i></span><span><small>Correo</small>info@icap.ac.cr</span></a>
+          <a href="tel:+50640012985"><span class="ic"><i data-lucide="phone"></i></span><span><small>Teléfono</small>+(506) 4001-2985</span></a>
+          <a href="tel:+50686909583"><span class="ic"><i data-lucide="smartphone"></i></span><span><small>Celular</small>+(506) 8690-9583</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

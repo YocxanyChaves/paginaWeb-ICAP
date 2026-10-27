@@ -1,0 +1,106 @@
+/* Paleta, tipografías y piezas compartidas (mismas del brochure ICAP-vCard).
+   Los títulos de sección usan Yellowtail, como los de icap.ac.cr. */
+:root {
+  --navy: #003366;
+  --navy-hondo: #001F3D;
+  --azul: #0077C8;
+  --azul-medio: #0B5A96;
+  --celeste: #9FC6E8;
+  --celeste-claro: #D6E9F7;
+  --brillo: #4FB2F2;
+  --texto: #1B2430;
+  --texto-suave: #4A5A6E;
+  --borde: rgba(0, 51, 102, .12);
+  --fuente: 'Open Sans', system-ui, -apple-system, sans-serif;
+  --fuente-titulo: 'Raleway', system-ui, -apple-system, sans-serif;
+  --fuente-script: 'Yellowtail', cursive;
+  --fuente-mono: 'IBM Plex Mono', monospace;
+  --resorte: cubic-bezier(.34, 1.56, .64, 1);
+  --suave-salida: cubic-bezier(.16, 1, .3, 1);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--fuente);
+  color: var(--texto);
+  background: var(--celeste-claro);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4 { font-family: var(--fuente-titulo); margin: 0; }
+p { margin: 0; }
+button { font: inherit; cursor: pointer; color: inherit; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--brillo); outline-offset: 3px; }
+
+.contenedor { width: min(1180px, 100% - 32px); margin-inline: auto; }
+
+/* Secciones */
+.bloque { position: relative; padding: 88px 0; }
+/* Las secciones se alternan: una clara (celeste) y una oscura (navy). */
+.bloque.oscuro { background: linear-gradient(180deg, var(--navy-hondo), var(--navy)); color: #fff; }
+.oscuro .boton { background: var(--azul); }
+.oscuro .boton:hover { background: var(--brillo); }
+@media (max-width: 700px) { .bloque { padding: 60px 0; } }
+
+.encabezado { text-align: center; max-width: 720px; margin: 0 auto 44px; }
+.encabezado h2 {
+  font-family: var(--fuente-script); font-weight: 400; color: var(--navy);
+  font-size: clamp(2.3rem, 5vw, 3.4rem); line-height: 1.1; margin: 14px 0 12px;
+}
+.encabezado p { color: var(--texto-suave); line-height: 1.7; }
+.oscuro .encabezado h2 { color: #fff; }
+.oscuro .encabezado p { color: #C7DDF0; }
+@media (max-width: 700px) { .encabezado { margin-bottom: 30px; } }
+
+/* Pastilla sobre los títulos (KickerBadge del brochure) */
+.kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--fuente-mono); font-size: 11.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--azul); padding: 6px 14px; border-radius: 999px;
+  border: 1px solid rgba(0, 119, 200, .25); background: rgba(255, 255, 255, .6);
+}
+.kicker::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--brillo); box-shadow: 0 0 10px var(--brillo); }
+.kicker-oscuro { color: var(--celeste); border-color: rgba(159, 198, 232, .35); background: rgba(255, 255, 255, .06); }
+
+/* Rayita de luz con puntas de flecha: el toque de luz de AT en el brochure */
+.luz { position: relative; display: block; height: 8px; width: 220px; max-width: 60%; animation: barrido 2.4s ease-in-out infinite; }
+.luz::before {
+  content: ''; position: absolute; inset: 0; filter: blur(3px); opacity: .8;
+  background: linear-gradient(90deg, transparent, rgba(79, 178, 242, .55) 18%, #5cc9ff 40%, #7dd3fc 50%, #5cc9ff 60%, rgba(79, 178, 242, .55) 82%, transparent);
+}
+.luz::after {
+  content: ''; position: absolute; left: 8%; right: 8%; top: 50%; height: 2px; transform: translateY(-50%);
+  background: linear-gradient(90deg, #4FB2F2, #7dd3fc 42%, #fff 50%, #7dd3fc 58%, #4FB2F2);
+  clip-path: polygon(0% 50%, 16% 0%, 84% 0%, 100% 50%, 84% 100%, 16% 100%);
+}
+@keyframes barrido { 0%, 100% { opacity: .65; transform: scaleX(.92); } 50% { opacity: 1; transform: scaleX(1); } }
+
+/* Botón genérico */
+.boton {
+  display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 999px;
+  padding: 10px 20px; background: var(--navy); color: #fff;
+  font-family: var(--fuente-titulo); font-weight: 800; font-size: 13px;
+  transition: background .2s, transform .2s var(--resorte);
+}
+.boton:hover { background: var(--azul); transform: translateY(-2px); }
+.boton svg { width: 16px; height: 16px; }
+
+/* Animaciones compartidas */
+.revelar { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--suave-salida), transform .7s var(--suave-salida); }
+.revelar.visto { opacity: 1; transform: none; }
+
+@keyframes boop { 0% { transform: scale(1); } 35% { transform: scale(1.14); } 60% { transform: scale(.97); } 100% { transform: scale(1); } }
+.boop { animation: boop .5s var(--resorte) both; }
+
+@keyframes entraFicha { 0% { opacity: 0; transform: translateY(18px) scale(.96); } 100% { opacity: 1; transform: none; } }
+@keyframes girar { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .revelar { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}

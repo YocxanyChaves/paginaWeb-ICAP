@@ -1,0 +1,61 @@
+/* Generación de capacidades: las cuatro bolitas del diagrama oficial unidas por
+   arcos en zigzag; un rayito de luz da la vuelta a cada una sin parar. La
+   etapa activa se agranda y su tarjeta pasa en el carrusel de al lado. */
+.etapas { display: grid; grid-template-columns: 1.1fr 1fr; gap: 44px; align-items: center; }
+
+.ruta { position: relative; aspect-ratio: 500 / 200; width: 100%; max-width: 560px; margin-inline: auto; }
+.ruta svg.arcos { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+/* Tira de luz: cada pedacito es un trazo corto del mismo circuito cerrado,
+   un poco atrasado respecto al anterior (ver etapas.js). Como el circuito
+   mide 1000 y el trazo + hueco también, la vuelta empalma sin saltos. */
+.rayo-luz { filter: drop-shadow(0 0 2px #0077C8) drop-shadow(0 0 7px rgba(79, 178, 242, .85)); }
+.rayo { fill: none; stroke-linecap: round; stroke-dasharray: 6 994; animation: rayo var(--vuelta) linear infinite; }
+@keyframes rayo { from { stroke-dashoffset: 6; } to { stroke-dashoffset: -994; } }
+
+.bolita {
+  position: absolute; top: 50%; width: 13%; aspect-ratio: 1; padding: 0; border: 0; border-radius: 50%;
+  display: grid; place-items: center; color: #fff; background: var(--c);
+  transform: translate(-50%, -50%) scale(.9);
+  box-shadow: inset 0 -5px 10px rgba(0, 0, 0, .18), inset 0 3px 8px rgba(255, 255, 255, .25);
+  transition: transform .8s var(--resorte), box-shadow .6s;
+}
+.bolita svg { width: 42%; height: 42%; stroke-width: 2.2; }
+.bolita:hover { transform: translate(-50%, -50%) scale(1); }
+.bolita.activa {
+  transform: translate(-50%, -50%) scale(1.2);
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, .1), 0 0 26px -2px var(--c), inset 0 -5px 10px rgba(0, 0, 0, .18), inset 0 3px 8px rgba(255, 255, 255, .3);
+}
+/* La bolita de "Adopción" es navy: con un aro claro se distingue del fondo. */
+.bolita.navy { box-shadow: 0 0 0 2px rgba(159, 198, 232, .5), inset 0 3px 8px rgba(255, 255, 255, .2); }
+.bolita.navy.activa { box-shadow: 0 0 0 3px rgba(159, 198, 232, .8), 0 0 26px -2px #4FB2F2; }
+
+/* Carrusel de tarjetas, con el mismo estilo que la ficha de servicios */
+.carrusel-etapas { min-width: 0; overflow: hidden; border-radius: 28px; }
+.pista-etapas { display: flex; transition: transform .8s var(--suave-salida); }
+.tarjeta-etapa {
+  flex: 0 0 100%; position: relative; overflow: hidden; padding: 30px; border-radius: 28px; color: #fff;
+  background:
+    radial-gradient(65% 70% at 14% -8%, rgba(255, 255, 255, .35), transparent 42%),
+    linear-gradient(160deg, #0090DD 0%, #0068AE 48%, #013A63 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35);
+}
+.tarjeta-etapa-cabeza { position: relative; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.tarjeta-etapa-icono { display: grid; place-items: center; width: 42px; height: 42px; flex: none; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 2px rgba(255, 255, 255, .5); }
+.tarjeta-etapa-icono svg { width: 19px; height: 19px; }
+.tarjeta-etapa .paso { font-family: var(--fuente-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--celeste); }
+.tarjeta-etapa h3 { font-size: 1.4rem; font-weight: 900; line-height: 1.2; }
+.tarjeta-etapa p { position: relative; color: #E3F0FB; line-height: 1.65; font-size: 14.5px; margin-top: 14px; }
+.tarjeta-etapa h4 { position: relative; font-family: var(--fuente-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--celeste); margin: 18px 0 10px; }
+.entrega { position: relative; list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.entrega li { display: flex; gap: 10px; font-size: 14px; line-height: 1.45; }
+.entrega svg { width: 16px; height: 16px; flex: none; margin-top: 2px; color: #7dd3fc; }
+
+.puntos-etapas { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
+.puntos-etapas button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 999px; background: rgba(0, 51, 102, .2); transition: width .4s var(--resorte), background .3s; }
+.puntos-etapas button.activo { width: 26px; background: var(--azul); }
+
+@media (max-width: 900px) {
+  .etapas { grid-template-columns: 1fr; gap: 26px; }
+  .bolita { width: 15%; }
+  .tarjeta-etapa { padding: 24px; }
+}
