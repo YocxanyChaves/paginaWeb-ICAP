@@ -1,0 +1,83 @@
+/* Conozca más: dos "puertas", una por departamento, que llevan al brochure en
+   línea, y un botón principal. Va antes de las organizaciones en las tres
+   versiones; en la interactiva y la clásica (.sin-serifa) los títulos van con
+   la letra de esas versiones. */
+.conozca { position: relative; overflow: hidden; background: #fff; }
+.conozca-agua { position: absolute; width: 520px; right: -120px; top: 40px; opacity: .04; transform: rotate(-8deg); pointer-events: none; }
+
+.puertas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 980px; margin: 0 auto; }
+.puerta {
+  position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 6px; padding: 30px 30px 26px;
+  border-radius: 22px; text-decoration: none; color: var(--texto); background: #FCFBF8;
+  box-shadow: 0 0 0 1px rgba(0, 51, 102, .1), 0 30px 50px -40px rgba(0, 31, 61, .6);
+  transition: transform .5s var(--suave-salida), box-shadow .5s;
+}
+.puerta::before { content: ''; position: absolute; top: 0; left: 30px; right: 30px; height: 3px; border-radius: 0 0 3px 3px; background: var(--c); }
+.puerta:hover { transform: translateY(-6px); box-shadow: 0 0 0 1px color-mix(in srgb, var(--c) 45%, transparent), 0 40px 60px -36px rgba(0, 31, 61, .6); }
+.puerta-icono {
+  display: grid; place-items: center; width: 52px; height: 52px; margin-bottom: 10px; border-radius: 50%;
+  color: var(--c); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 45%, transparent);
+}
+.puerta-icono svg { width: 24px; height: 24px; stroke-width: 1.6; }
+.puerta small { font-family: var(--fuente-mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--texto-suave); }
+.puerta h3 { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.7rem; font-weight: 600; line-height: 1.15; color: var(--navy); }
+.puerta p { margin-top: 4px; font-family: 'Source Serif 4', Georgia, serif; font-size: 15.5px; line-height: 1.6; }
+.puerta ul { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 0; padding: 0; list-style: none; }
+.puerta li { padding: 4px 11px; border-radius: 999px; font-size: 12px; color: var(--navy); background: color-mix(in srgb, var(--c) 9%, #fff); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 22%, transparent); }
+.puerta-ir { display: inline-flex; align-items: center; gap: 6px; margin-top: 18px; font-size: 13.5px; font-weight: 700; color: var(--c); }
+.puerta-ir svg { width: 16px; height: 16px; transition: transform .3s; }
+.puerta:hover .puerta-ir svg { transform: translate(2px, -2px); }
+
+.conozca-accion { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 40px; text-align: center; }
+.conozca-boton {
+  display: inline-flex; align-items: center; gap: 10px; padding: 15px 28px; border-radius: 16px; text-decoration: none;
+  font-family: var(--fuente-titulo); font-size: 14px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #fff;
+  background: linear-gradient(135deg, var(--navy), var(--azul)); box-shadow: 0 16px 30px -14px rgba(0, 119, 200, .7);
+  transition: transform .3s var(--suave-salida), box-shadow .3s;
+}
+.conozca-boton svg { width: 18px; height: 18px; }
+.conozca-boton:hover { transform: translateY(-2px); box-shadow: 0 22px 36px -14px rgba(0, 119, 200, .8); }
+.conozca-accion small { font-size: 12.5px; color: var(--texto-suave); }
+
+/* Los enlaces de la clásica son azules y subrayados: aquí no */
+.conozca a, .conozca a:hover { text-decoration: none; }
+.conozca a.puerta { color: var(--texto); }
+.conozca a.conozca-boton { color: #fff; }
+
+.sin-serifa .puerta h3 { font-family: var(--fuente-titulo); font-size: 1.5rem; font-weight: 800; }
+.sin-serifa .puerta p { font-family: inherit; font-size: 14.5px; }
+
+@media (max-width: 760px) {
+  .puertas { grid-template-columns: 1fr; }
+  .puerta { padding: 26px 22px 22px; }
+  .puerta::before { left: 22px; right: 22px; }
+}
+
+/* Interactiva: tarjetas más verticales, todo centrado y el ícono del
+   departamento grande en medio, con un halo de su color. */
+.puertas.verticales { grid-template-columns: repeat(2, minmax(0, 340px)); justify-content: center; gap: 28px; }
+.verticales .puerta { align-items: center; min-height: 460px; padding: 40px 30px 30px; text-align: center; }
+.verticales .puerta-icono {
+  width: 92px; height: 92px; margin: 6px 0 22px; color: #fff; background: var(--c);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--c) 14%, transparent), 0 0 0 16px color-mix(in srgb, var(--c) 6%, transparent), 0 18px 30px -14px var(--c);
+}
+.verticales .puerta-icono svg { width: 40px; height: 40px; stroke-width: 1.7; }
+.verticales .puerta ul { justify-content: center; }
+.verticales .puerta-ir { margin-top: auto; padding-top: 22px; }
+@media (max-width: 760px) {
+  .puertas.verticales { grid-template-columns: minmax(0, 360px); }
+  .verticales .puerta { min-height: 0; }
+}
+
+/* Clásica: sólo dos botones, uno por departamento, y sin marca de agua (la
+   sección es corta y el escudo quedaba cortado) */
+.c-departamentos { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+.conozca a.c-boton-depto {
+  display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 10px;
+  font-family: var(--fuente-titulo); font-size: 15px; font-weight: 700; color: #fff; background: var(--azul);
+  transition: background .3s;
+}
+.conozca a.c-boton-depto:last-child { background: var(--navy); }
+.conozca a.c-boton-depto:hover { background: var(--navy-hondo); }
+.c-boton-depto svg { width: 18px; height: 18px; }
+.c-bloque.conozca .conozca-agua { display: none; }

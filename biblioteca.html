@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asistencia técnica · ICAP</title>
+  <meta name="description" content="Asistencia técnica y acompañamiento del ICAP a instituciones públicas de Centroamérica y República Dominicana." />
+  <link rel="icon" type="image/png" href="assets/img/icap-logo-mark.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Open+Sans:wght@400;600;700&family=Raleway:wght@600;700;800;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Yellowtail&display=swap" rel="stylesheet">
+
+  <!-- Tercera versión: un hero como portada de libro, las áreas en un
+       librero, las etapas con el rayo de luz sobre la etapa en la que se está
+       y las mismas organizaciones de la interactiva. -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/biblioteca/portada.css">
+  <link rel="stylesheet" href="css/aliados.css">
+  <link rel="stylesheet" href="css/conozca.css">
+  <link rel="stylesheet" href="css/biblioteca/folleto.css">
+  <link rel="stylesheet" href="css/biblioteca/libros.css">
+  <link rel="stylesheet" href="css/biblioteca/etapas.css">
+  <link rel="stylesheet" href="css/switch.css">
+
+  <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script defer src="js/datos/etiquetas.js"></script>
+  <script defer src="js/datos/etapas.js"></script>
+  <script defer src="js/datos/proyectos.js"></script>
+  <script defer src="js/datos/aliados.js"></script>
+  <script defer src="js/util.js"></script>
+  <script defer src="js/aliados.js"></script>
+  <script defer src="js/biblioteca/portada.js"></script>
+  <script defer src="js/biblioteca/libros.js"></script>
+  <script defer src="js/biblioteca/etapas.js"></script>
+  <script defer src="js/biblioteca/folleto.js"></script>
+  <script defer src="js/biblioteca/main.js"></script>
+  <script defer src="js/switch.js"></script>
+</head>
+<body>
+
+  <nav class="cambio-version" aria-label="Versión de la página">
+    <a href="index.html">Interactiva</a>
+    <a href="clasica.html">Clásica</a>
+    <a href="biblioteca.html" aria-current="page">Biblioteca</a>
+  </nav>
+
+  <!-- Hero: el degradado, el resplandor y el círculo blanco del brochure, con
+       otra composición: texto a la izquierda y la órbita de las etapas a la derecha -->
+  <section class="portada" id="inicio">
+    <div class="po-resplandor" aria-hidden="true"></div>
+    <img class="po-agua" src="assets/img/icap-logo-mark.png" alt="" aria-hidden="true" draggable="false">
+    <div class="contenedor po-contenido">
+      <div>
+        <h1 class="po-sube" style="animation-delay:150ms">Asistencia técnica</h1>
+        <span class="po-lema po-sube" style="animation-delay:300ms">del dato a la práctica</span>
+        <p class="po-texto po-sube" style="animation-delay:450ms">
+          Nuestros servicios de asistencia técnica se ofrecen en toda la región, con especial énfasis en
+          Centroamérica y República Dominicana, contando con una red de especialistas a nivel mundial.
+        </p>
+      </div>
+      <div class="orbita" id="orbita"></div>
+    </div>
+  </section>
+
+  <!-- Áreas de especialización: un librero de tres niveles, un libro por área -->
+  <section class="bloque biblioteca" id="areas">
+    <div class="contenedor">
+      <header class="encabezado revelar">
+        <span class="kicker">Nuestros temas apuntan a la matriz del futuro</span>
+        <h2>Áreas de especialización</h2>
+        <p>
+          Un mundo complejo requiere de gobiernos y organizaciones inteligentes, con rápida capacidad de ajuste,
+          adaptación y resiliencia. Cada libro con nombre es un área y el grosor de su lomo es la cantidad de proyectos.
+        </p>
+      </header>
+    </div>
+    <div class="pared revelar">
+      <div class="sala">
+        <div class="librero" id="estante"></div>
+        <div class="lado-vista">
+          <!-- Dos formas de ver: la vista previa al lado del librero o el libro abierto -->
+          <div class="vistas" id="vistas" role="radiogroup" aria-label="Forma de ver las áreas">
+            <button type="button" class="vista-boton" role="radio" aria-checked="true" data-modo="ficha"><i data-lucide="layout-panel-left"></i>Ficha rápida</button>
+            <button type="button" class="vista-boton" role="radio" aria-checked="false" data-modo="libro"><i data-lucide="book-open"></i>Abrir el libro</button>
+          </div>
+          <aside class="vista-previa" id="vistaPrevia" aria-live="polite" aria-label="Vista previa del área"></aside>
+        </div>
+      </div>
+      <div class="lectura" id="lectura" hidden>
+        <div class="lectura-velo" data-cerrar></div>
+        <div class="libro-abierto" id="libroAbierto" role="dialog" aria-modal="false" aria-labelledby="libroTitulo"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Generación de capacidades -->
+  <section class="bloque etapas3" id="etapas">
+    <div class="contenedor">
+      <header class="encabezado revelar">
+        <span class="kicker">Cómo trabajamos</span>
+        <h2>Generación de capacidades</h2>
+        <p>Cada asistencia va del dato a la práctica: acompañamos a la institución hasta que el cambio se adopta.</p>
+      </header>
+      <div class="linea-tiempo revelar" id="submenuEtapas" role="tablist" aria-label="Etapas"></div>
+      <div class="etapas3-cuerpo revelar">
+        <div class="ruta3" id="ruta3"></div>
+        <div class="tarjeta3-hueco" id="tarjeta3" role="tabpanel" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conozca más: invita a ver los dos departamentos en el brochure -->
+  <section class="bloque conozca" id="conozca">
+    <img class="conozca-agua" src="assets/img/icap-escudo.svg" alt="" aria-hidden="true" draggable="false">
+    <div class="contenedor">
+      <header class="encabezado revelar">
+        <span class="kicker">Conozca más del ICAP</span>
+        <h2>Dos departamentos, un mismo instituto</h2>
+        <p>Esta página resume la asistencia técnica. En el brochure en línea encontrará a detalle los dos departamentos del ICAP: quiénes somos, qué hacemos y cómo contactarnos.</p>
+      </header>
+      <!-- Un brochure que se hojea: portada, secciones y el enlace. Las pestañas
+           cambian de departamento. -->
+      <div class="folletos revelar" id="folletos">
+        <div class="folleto-escena">
+          <div class="folleto" id="folleto" title="Toque para pasar la página"></div>
+        </div>
+        <div class="tomo-texto">
+          <div class="tomo-pestanas" role="tablist" aria-label="Departamentos" id="folletoPestanas"></div>
+          <div class="tomo-panel" id="folletoPanel" role="tabpanel" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Organizaciones con las que colaboramos -->
+  <section class="bloque aliados" id="aliados">
+    <div class="contenedor">
+      <header class="encabezado revelar">
+        <span class="kicker">Organizaciones con las que colaboramos</span>
+        <h2>Una red regional e internacional</h2>
+        <p>ICAP apoya a los gobiernos nacionales y locales de Centroamérica y el Caribe y a múltiples organizaciones públicas y privadas. Arrastre la tira y toque un logo.</p>
+      </header>
+    </div>
+    <div class="tira" id="tira">
+      <div class="tira-pista" id="pistaAliados"></div>
+    </div>
+    <div class="nota-aliado" id="notaAliado" role="dialog" aria-modal="false" hidden></div>
+  </section>
+
+</body>
+</html>

@@ -1,42 +1,44 @@
-/* Versión clásica: pinta servicios, áreas y etapas a partir de los
-   mismos datos de la versión interactiva (js/datos), sin animaciones. */
+/* Versión clásica: pinta áreas y etapas a partir de los mismos datos de la
+   versión interactiva (js/datos). Casi sin animaciones: sólo las tarjetas de
+   las áreas, que dan vuelta. */
 ICAP.clasica = {};
 
-// Tarjetas que dan vuelta al pasar el mouse, como las de "Modelo educativo"
-// en icap.ac.cr. En pantallas táctiles dan vuelta al tocarlas.
-ICAP.clasica.servicios = () => {
-  const lista = ICAP.$('#cServicios');
-  lista.innerHTML = ICAP.SERVICIOS.map((s, i) => `
-    <li class="c-tarjeta" tabindex="0">
-      <div class="c-tarjeta-giro">
-        <div class="c-tarjeta-frente">
-          <span class="c-tarjeta-num">${String(i + 1).padStart(2, '0')}</span>
-          <i data-lucide="${s.ic}"></i>
-          <h3>${s.nombre}</h3>
-        </div>
-        <div class="c-tarjeta-dorso">
-          <p>${s.desc}</p>
-          <ul>${s.incluye.map((x) => `<li>${x}</li>`).join('')}</ul>
-        </div>
-      </div>
-    </li>`).join('');
-  lista.addEventListener('touchstart', (e) => {
-    const tarjeta = e.target.closest('.c-tarjeta');
-    if (tarjeta) tarjeta.classList.toggle('volteada');
-  }, { passive: true });
-};
-
-// Áreas como bloques de texto a todo el ancho, una debajo de la otra.
+// Áreas en tarjetas que dan vuelta con un clic, como las de "Modelo
+// educativo" de icap.ac.cr: al frente, celeste clarito con el ícono del área
+// en su color y el nombre; atrás, del color del área, la descripción y la
+// cantidad de proyectos.
 ICAP.clasica.areas = () => {
-  ICAP.$('#cAreas').innerHTML = ICAP.ETIQUETAS.map((a) => {
+  const lista = ICAP.$('#cAreas');
+  lista.innerHTML = ICAP.ETIQUETAS.map((a) => {
     const n = ICAP.proyectosDeEtiquetas([a.id]).length;
     return `
-      <li style="--c:${a.color}">
-        <h3>${a.nombre}</h3>
-        <p>${a.desc}</p>
-        <div class="c-area-cifra"><strong>${n}</strong>${n === 1 ? 'proyecto ejecutado' : 'proyectos ejecutados'}</div>
+      <li class="c-tarjeta" tabindex="0" role="button" aria-pressed="false" style="--c:${a.color}">
+        <div class="c-tarjeta-giro">
+          <div class="c-tarjeta-frente">
+            <span class="c-tarjeta-icono"><i data-lucide="${a.ic}"></i></span>
+            <h3>${a.nombre}</h3>
+          </div>
+          <div class="c-tarjeta-dorso">
+            <h4><i data-lucide="${a.ic}"></i>${a.nombre}</h4>
+            <p>${a.desc}</p>
+            <div class="c-area-cifra"><strong>${n}</strong>${n === 1 ? 'proyecto ejecutado' : 'proyectos ejecutados'}</div>
+          </div>
+        </div>
       </li>`;
   }).join('');
+  // Se dan vuelta sólo con un clic (o Enter/Espacio con el teclado).
+  const voltear = (tarjeta) => {
+    tarjeta.classList.toggle('volteada');
+    tarjeta.setAttribute('aria-pressed', tarjeta.classList.contains('volteada'));
+  };
+  lista.addEventListener('click', (e) => {
+    const tarjeta = e.target.closest('.c-tarjeta');
+    if (tarjeta) voltear(tarjeta);
+  });
+  lista.addEventListener('keydown', (e) => {
+    const tarjeta = e.target.closest('.c-tarjeta');
+    if (tarjeta && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); voltear(tarjeta); }
+  });
 };
 
 // El diagrama de la página oficial: cuatro círculos con arcos grises en zigzag.
@@ -57,3 +59,8 @@ ICAP.clasica.etapas = () => {
       <ul>${e.entrega.map((x) => `<li>${x}</li>`).join('')}</ul>
     </li>`).join('');
 };
+
+ICAP.clasica.areas();
+ICAP.clasica.etapas();
+ICAP.aliados.iniciar();
+ICAP.iconos();

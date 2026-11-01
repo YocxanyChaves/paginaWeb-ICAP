@@ -35,17 +35,22 @@
 .nota-cerrar svg { width: 15px; height: 15px; }
 .nota-cuerpo { padding: 14px 16px 16px; display: grid; gap: 8px; }
 .nota-cuerpo > p { font-size: 13px; color: var(--texto-suave); line-height: 1.55; }
+/* Enlace al sitio de la organización, fijo al pie de la nota */
+.nota-web {
+  position: sticky; bottom: 0; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 16px;
+  border-top: 1px solid var(--borde); background: #fff; font-size: 13px; font-weight: 600; color: var(--azul); text-decoration: none;
+}
+.nota-web svg { width: 16px; height: 16px; transition: transform .25s; }
+.nota-web:hover { color: var(--navy); }
+.nota-web:hover svg { transform: translate(2px, -2px); }
 .nota-titulo { font-family: var(--fuente-mono); font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-suave); }
 .nota-proyecto {
-  display: flex; align-items: flex-start; gap: 10px; width: 100%; text-align: left; padding: 10px 12px; border-radius: 14px;
-  border: 1px solid var(--borde); background: #F6F9FC; font-size: 12.5px; line-height: 1.4; transition: border-color .2s, background .2s;
+  display: flex; align-items: flex-start; gap: 10px; width: 100%; padding: 10px 12px; border-radius: 14px;
+  border: 1px solid var(--borde); background: #F6F9FC; font-size: 12.5px; line-height: 1.4;
 }
-.nota-proyecto:hover { border-color: var(--azul); background: #EAF3FB; }
 .nota-proyecto .puntos { display: flex; gap: 3px; margin-top: 5px; flex: none; }
 .nota-proyecto .puntos i { width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
 .nota-proyecto span { flex: 1; }
-.nota-proyecto svg { width: 15px; height: 15px; color: var(--azul); flex: none; margin-top: 1px; }
-.nota-cuerpo .boton { justify-content: center; margin-top: 4px; }
 
 .velo { position: fixed; inset: 0; z-index: 55; background: rgba(0, 31, 61, .45); animation: aparecer .25s both; }
 @keyframes aparecer { from { opacity: 0; } }

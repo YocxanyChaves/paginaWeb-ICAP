@@ -42,8 +42,6 @@ img { max-width: 100%; }
 .bloque { position: relative; padding: 88px 0; }
 /* Las secciones se alternan: una clara (celeste) y una oscura (navy). */
 .bloque.oscuro { background: linear-gradient(180deg, var(--navy-hondo), var(--navy)); color: #fff; }
-.oscuro .boton { background: var(--azul); }
-.oscuro .boton:hover { background: var(--brillo); }
 @media (max-width: 700px) { .bloque { padding: 60px 0; } }
 
 .encabezado { text-align: center; max-width: 720px; margin: 0 auto 44px; }
@@ -78,16 +76,6 @@ img { max-width: 100%; }
   clip-path: polygon(0% 50%, 16% 0%, 84% 0%, 100% 50%, 84% 100%, 16% 100%);
 }
 @keyframes barrido { 0%, 100% { opacity: .65; transform: scaleX(.92); } 50% { opacity: 1; transform: scaleX(1); } }
-
-/* Botón genérico */
-.boton {
-  display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 999px;
-  padding: 10px 20px; background: var(--navy); color: #fff;
-  font-family: var(--fuente-titulo); font-weight: 800; font-size: 13px;
-  transition: background .2s, transform .2s var(--resorte);
-}
-.boton:hover { background: var(--azul); transform: translateY(-2px); }
-.boton svg { width: 16px; height: 16px; }
 
 /* Animaciones compartidas */
 .revelar { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--suave-salida), transform .7s var(--suave-salida); }

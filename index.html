@@ -13,25 +13,20 @@
 
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/hero.css">
-  <link rel="stylesheet" href="css/servicios.css">
   <link rel="stylesheet" href="css/etapas.css">
-  <link rel="stylesheet" href="css/proyectos.css">
   <link rel="stylesheet" href="css/areas.css">
   <link rel="stylesheet" href="css/aliados.css">
-  <link rel="stylesheet" href="css/contacto.css">
+  <link rel="stylesheet" href="css/conozca.css">
   <link rel="stylesheet" href="css/switch.css">
 
   <script defer src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script defer src="js/datos/etiquetas.js"></script>
-  <script defer src="js/datos/servicios.js"></script>
-  <script defer src="js/datos/paises.js"></script>
+  <script defer src="js/datos/etapas.js"></script>
   <script defer src="js/datos/proyectos.js"></script>
   <script defer src="js/datos/aliados.js"></script>
   <script defer src="js/util.js"></script>
   <script defer src="js/hero.js"></script>
-  <script defer src="js/servicios.js"></script>
   <script defer src="js/etapas.js"></script>
-  <script defer src="js/proyectos.js"></script>
   <script defer src="js/areas.js"></script>
   <script defer src="js/aliados.js"></script>
   <script defer src="js/main.js"></script>
@@ -42,76 +37,45 @@
   <nav class="cambio-version" aria-label="Versión de la página">
     <a href="index.html" aria-current="page">Interactiva</a>
     <a href="clasica.html">Clásica</a>
+    <a href="biblioteca.html">Biblioteca</a>
   </nav>
 
-  <!-- Hero: el mismo del brochure (degradado, resplandor, ondas y partículas) -->
+  <!-- Hero: el degradado y las ondas del brochure, pero con su propia
+       composición (texto a la izquierda, cifras en lista a la derecha) -->
   <section class="hero" id="inicio">
     <div class="hero-resplandor" aria-hidden="true"></div>
     <div class="hero-fondo" aria-hidden="true">
-      <div class="onda-capa respiro-rapido">
-        <svg class="deriva-rapida" viewBox="0 0 1600 600" preserveAspectRatio="none">
-          <path d="M0 130 C 200 55, 600 205, 800 130 C 1000 55, 1400 205, 1600 130" stroke-width="1.8" opacity=".24" />
-        </svg>
-      </div>
-      <div class="onda-capa respiro-rapido">
-        <svg class="deriva-rapida" viewBox="0 0 1600 600" preserveAspectRatio="none">
-          <path d="M0 480 C 220 545, 580 415, 800 480 C 1020 545, 1380 415, 1600 480" stroke-width="1.6" opacity=".18" />
-        </svg>
-      </div>
-      <div class="onda-capa respiro-lento" style="opacity:.09">
+      <div class="onda-capa respiro-lento">
         <svg class="deriva-lenta" viewBox="0 0 1600 600" preserveAspectRatio="none">
-          <path d="M0 300 C 250 260, 550 340, 800 300 C 1050 260, 1350 340, 1600 300" stroke-width="1.2" />
+          <path d="M0 470 C 220 535, 580 405, 800 470 C 1020 535, 1380 405, 1600 470" stroke-width="1.6" opacity=".2" />
         </svg>
       </div>
-      <span class="particula" style="left:8%;width:6px;height:6px;animation-duration:9s;animation-delay:-1s"></span>
-      <span class="particula" style="left:22%;width:4px;height:4px;animation-duration:12s;animation-delay:-4.5s"></span>
-      <span class="particula" style="left:38%;width:5px;height:5px;animation-duration:10.5s;animation-delay:-7s"></span>
-      <span class="particula" style="left:58%;width:7px;height:7px;animation-duration:13s;animation-delay:-2.5s"></span>
-      <span class="particula" style="left:74%;width:4px;height:4px;animation-duration:9.5s;animation-delay:-8s"></span>
-      <span class="particula" style="left:88%;width:6px;height:6px;animation-duration:11.5s;animation-delay:-3.5s"></span>
+      <div class="onda-capa respiro-lento" style="opacity:.1">
+        <svg class="deriva-lenta" viewBox="0 0 1600 600" preserveAspectRatio="none">
+          <path d="M0 530 C 250 490, 550 570, 800 530 C 1050 490, 1350 570, 1600 530" stroke-width="1.2" />
+        </svg>
+      </div>
     </div>
 
     <div class="contenedor hero-contenido">
-      <span class="hero-kicker sube" style="animation-delay:90ms"><i></i>Unidad de Asistencia Técnica</span>
-      <div class="emblema sube" style="animation-delay:170ms">
-        <span class="emblema-halo"></span>
-        <span class="emblema-anillo"></span>
-        <span class="emblema-logo"><img src="assets/img/icap-logo-mark.png" alt="ICAP" draggable="false"></span>
-      </div>
-      <h1 class="sube" style="animation-delay:240ms">Asistencia técnica</h1>
-      <p class="hero-texto sube" style="animation-delay:380ms">
-        Nuestros servicios de asistencia técnica se ofrecen en toda la región, con especial énfasis en
-        Centroamérica y República Dominicana, contando con una red de especialistas a nivel mundial.
-      </p>
-      <div class="cifras sube" id="cifras" style="animation-delay:450ms"></div>
-      <a class="desliza sube" href="#servicios" style="animation-delay:520ms">Deslizá<i data-lucide="chevron-down"></i></a>
-    </div>
-  </section>
-
-  <!-- Las diez líneas de trabajo -->
-  <section class="bloque" id="servicios">
-    <div class="contenedor">
-      <header class="encabezado revelar">
-        <span class="kicker">Asistencia y acompañamiento técnico</span>
-        <h2>¿En qué podemos acompañar a su institución?</h2>
-        <p>
-          El ICAP, a través de su Unidad de Asistencia Técnica, ha ejecutado proyectos de alto impacto con
-          instituciones clave del ecosistema de desarrollo centroamericano. Elija una línea de trabajo.
+      <div class="hero-texto-col">
+        <span class="hero-kicker sube" style="animation-delay:90ms"><i></i>Unidad de Asistencia Técnica</span>
+        <h1 class="sube" style="animation-delay:180ms">Asistencia técnica</h1>
+        <p class="hero-texto sube" style="animation-delay:300ms">
+          Nuestros servicios de asistencia técnica se ofrecen en toda la región, con especial énfasis en
+          Centroamérica y República Dominicana, contando con una red de especialistas a nivel mundial.
         </p>
-      </header>
-      <div class="servicios revelar">
-        <div class="capsulas-servicios" id="listaServicios"></div>
-        <article class="ficha-servicio" id="fichaServicio" aria-live="polite"></article>
+        <a class="desliza sube" href="#areas" style="animation-delay:420ms">Deslizá<i data-lucide="chevron-down"></i></a>
       </div>
+      <div class="cifras sube" id="cifras" style="animation-delay:360ms"></div>
     </div>
   </section>
 
   <!-- Áreas de especialización: la esfera orbital de Valores del brochure -->
-  <section class="bloque oscuro areas" id="areas">
-    <div class="estrellas" id="estrellas" aria-hidden="true"></div>
+  <section class="bloque areas" id="areas">
     <div class="contenedor">
       <header class="encabezado revelar">
-        <span class="kicker kicker-oscuro">Nuestros temas apuntan a la matriz del futuro</span>
+        <span class="kicker">Nuestros temas apuntan a la matriz del futuro</span>
         <h2>Áreas de especialización</h2>
         <p>
           Un mundo complejo requiere de gobiernos y organizaciones inteligentes, con rápida capacidad de ajuste,
@@ -145,37 +109,35 @@
     </div>
   </section>
 
-  <!-- Explorador de proyectos -->
-  <section class="bloque oscuro" id="proyectos">
+  <!-- Conozca más: invita a ver los dos departamentos en el brochure -->
+  <section class="bloque conozca sin-serifa" id="conozca">
+    <img class="conozca-agua" src="assets/img/icap-escudo.svg" alt="" aria-hidden="true" draggable="false">
     <div class="contenedor">
       <header class="encabezado revelar">
-        <span class="kicker kicker-oscuro">Experiencia comprobada</span>
-        <h2>Proyectos de la última década</h2>
+        <span class="kicker">Conozca más del ICAP</span>
+        <h2>Dos departamentos, un mismo instituto</h2>
+        <p>Esta página resume la asistencia técnica. En el brochure en línea encontrará a detalle los dos departamentos del ICAP: quiénes somos, qué hacemos y cómo contactarnos.</p>
       </header>
-      <div class="explorador revelar">
-        <div class="explorador-fila">
-          <label class="buscador">
-            <i data-lucide="search"></i>
-            <input id="buscar" type="search" placeholder="Buscar proyecto o cliente…" autocomplete="off">
-          </label>
-          <div class="segmentado" id="estado" role="group" aria-label="Estado">
-            <button type="button" data-v="todos">Todos</button>
-            <button type="button" data-v="curso">En curso</button>
-            <button type="button" data-v="fin">Finalizados</button>
-          </div>
-        </div>
-        <div class="capsulas-areas" id="filtroAreas" role="group" aria-label="Áreas de especialización"></div>
-        <div class="banderas" id="filtroPaises" role="group" aria-label="Filtrar por país"></div>
+      <div class="puertas verticales revelar">
+        <a class="puerta" href="https://yocxanychaves.github.io/ICAP-vCard/" target="_blank" rel="noopener" style="--c:var(--azul)">
+          <span class="puerta-icono"><i data-lucide="handshake"></i></span>
+          <small>Departamento</small>
+          <h3>Asistencia técnica</h3>
+          <p>Acompañamiento a instituciones públicas de la región, de la mano de una red de especialistas.</p>
+          <ul><li>Misión</li><li>Valores</li><li>Áreas</li><li>Presencia</li><li>Proyectos</li><li>Autoridades</li><li>Contacto</li></ul>
+          <span class="puerta-ir">Ver en el brochure<i data-lucide="arrow-up-right"></i></span>
+        </a>
+        <a class="puerta" href="https://yocxanychaves.github.io/ICAP-vCard/docencia/" target="_blank" rel="noopener" style="--c:#6DB33F">
+          <span class="puerta-icono"><i data-lucide="graduation-cap"></i></span>
+          <small>Departamento</small>
+          <h3>Académico</h3>
+          <p>Formación de posgrado, investigación y publicaciones para la gestión pública centroamericana.</p>
+          <ul><li>Formación</li><li>Impacto</li><li>Investigación</li><li>Publicaciones</li><li>Áreas</li><li>Autoridades</li><li>Contacto</li></ul>
+          <span class="puerta-ir">Ver en el brochure<i data-lucide="arrow-up-right"></i></span>
+        </a>
       </div>
-      <div class="resumen">
-        <p id="conteo"></p>
-        <div id="filtroEspecial"></div>
-        <button type="button" class="limpiar" id="limpiar" hidden><i data-lucide="rotate-ccw"></i>Limpiar filtros</button>
-      </div>
-      <div class="grilla" id="grilla"></div>
-      <div class="paginacion">
-        <button type="button" class="boton" id="verMenos" hidden><i data-lucide="chevron-up"></i>Ver menos</button>
-        <button type="button" class="boton" id="verMas" hidden>Ver más<i data-lucide="chevron-down"></i></button>
+      <div class="conozca-accion revelar">
+        <a class="conozca-boton" href="https://yocxanychaves.github.io/ICAP-vCard/" target="_blank" rel="noopener">Abrir el brochure<i data-lucide="arrow-up-right"></i></a>
       </div>
     </div>
   </section>
@@ -193,28 +155,6 @@
       <div class="tira-pista" id="pistaAliados"></div>
     </div>
     <div class="nota-aliado" id="notaAliado" role="dialog" aria-modal="false" hidden></div>
-  </section>
-
-  <!-- Cierre -->
-  <section class="bloque oscuro" id="contacto">
-    <div class="contenedor">
-      <div class="cierre revelar">
-        <div>
-          <span class="kicker kicker-oscuro">Hablemos</span>
-          <h2>¿Su institución necesita acompañamiento técnico?</h2>
-          <p>
-            En el ICAP estamos comprometidos con la formación de excelencia del talento humano y la modernización
-            de la institucionalidad pública de Centroamérica y el Caribe. Nuestras oficinas centrales se encuentran
-            en San José, Costa Rica.
-          </p>
-        </div>
-        <div class="contacto">
-          <a href="mailto:info@icap.ac.cr"><span class="ic"><i data-lucide="mail"></i></span><span><small>Correo</small>info@icap.ac.cr</span></a>
-          <a href="tel:+50640012985"><span class="ic"><i data-lucide="phone"></i></span><span><small>Teléfono</small>+(506) 4001-2985</span></a>
-          <a href="tel:+50686909583"><span class="ic"><i data-lucide="smartphone"></i></span><span><small>Celular</small>+(506) 8690-9583</span></a>
-        </div>
-      </div>
-    </div>
   </section>
 
 </body>

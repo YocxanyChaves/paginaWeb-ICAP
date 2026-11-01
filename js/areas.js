@@ -56,12 +56,6 @@ ICAP.areas = (() => {
       if (p) ciclo(+p.dataset.i);
     });
     new ResizeObserver(([r]) => { tamano = r.contentRect.width || tamano; }).observe(galaxia);
-
-    ICAP.$('#estrellas').innerHTML = Array.from({ length: 26 }, (_, i) => {
-      const s = i * 137.5;
-      return `<span style="top:${(Math.sin(s) * 0.5 + 0.5) * 100}%;left:${(Math.cos(s * 1.7) * 0.5 + 0.5) * 100}%;` +
-        `width:${1 + (i * 7) % 3}px;height:${1 + (i * 7) % 3}px;animation-delay:${(i % 6) * 0.4}s"></span>`;
-    }).join('');
   }
 
   function ficha(i) {
@@ -81,12 +75,7 @@ ICAP.areas = (() => {
           <div><strong>${clientes}</strong><span>Clientes</span></div>
           <div><strong>${enCurso}</strong><span>En curso</span></div>
         </div>
-        <button type="button" class="ver-proyectos">Ver proyectos <i data-lucide="arrow-right"></i></button>
       </div>`;
-    ICAP.$('#fichaArea .ver-proyectos').onclick = () => {
-      ICAP.proyectos.filtrar({ etiquetas: [a.id] });
-      ICAP.$('#proyectos').scrollIntoView({ behavior: 'smooth' });
-    };
     ICAP.iconos();
   }
 

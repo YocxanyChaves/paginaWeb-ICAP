@@ -1,0 +1,131 @@
+/* Hero de la tercera versión. Del brochure: el degradado institucional, el
+   resplandor y el círculo blanco con su órbita punteada. Propio: la marca de
+   agua del isotipo, el texto a la izquierda y una órbita grande a la derecha
+   con las cuatro etapas, el rayo de luz y las cifras al centro.
+   La entrada arma todo de a poco (tiempos en ms desde que carga la página):
+   el texto sube suave (título 150 · lema 300 · párrafo 450) y la órbita
+   tiene su propia entrada: anillos 300 · círculo 600 · etapas 1150 en
+   adelante · rayo 1700 · pie 1900. Las piezas
+   que después tienen su propia animación entran con `scale`/`opacity`, que
+   no chocan con su `transform`. */
+.portada {
+  position: relative; overflow: hidden; color: #fff;
+  min-height: 620px; padding: 96px 0 84px; display: flex; align-items: center;
+  background: linear-gradient(135deg, var(--navy) 0%, #0B5A96 55%, var(--azul) 100%);
+}
+.po-resplandor {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle at 74% 46%, rgba(255, 255, 255, .17), rgba(0, 119, 200, 0) 55%);
+  animation: poAmanece 1.8s ease-out backwards, poResplandor 14s ease-in-out 1.8s infinite;
+}
+@keyframes poAmanece { from { opacity: 0; scale: .6; } }
+@keyframes poResplandor { 50% { transform: translate(-2%, 2.5%) scale(1.05); } }
+/* Marca de agua: el isotipo del ICAP grande y casi transparente, detrás del texto */
+.po-agua {
+  position: absolute; left: -6%; bottom: -18%; width: min(620px, 60vw); pointer-events: none;
+  filter: brightness(0) invert(1); opacity: .035; animation: poAguaEntra 2.4s ease-out backwards;
+}
+@keyframes poAguaEntra { from { opacity: 0; transform: translateY(20px); } }
+
+.po-contenido { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr minmax(300px, 440px); gap: clamp(32px, 6vw, 72px); align-items: center; }
+
+/* Texto: título, lema y párrafo suben apenas, uno detrás del otro */
+.portada h1 { margin: 0 0 4px; font-size: clamp(2.6rem, 6.4vw, 4.6rem); font-weight: 800; letter-spacing: -.01em; line-height: 1.02; }
+.po-lema { display: block; font-family: var(--fuente-script); font-size: clamp(1.7rem, 3.4vw, 2.5rem); font-weight: 400; color: var(--celeste); line-height: 1.2; }
+.po-texto { max-width: 520px; margin-top: 18px; line-height: 1.7; color: #D6E9F7; font-size: clamp(.95rem, 1.5vw, 1.05rem); }
+.po-sube { animation: poSube 1s var(--suave-salida) backwards; }
+@keyframes poSube { from { opacity: 0; transform: translateY(16px); } }
+
+/* La órbita */
+.orbita { position: relative; width: 100%; aspect-ratio: 1; }
+.orbita svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.po-anillos { transform-origin: 200px 200px; animation: poGiraEntra 1.6s cubic-bezier(.2, .7, .2, 1) 300ms backwards; }
+@keyframes poGiraEntra { from { opacity: 0; transform: rotate(-140deg) scale(.6); } }
+/* La órbita de las etapas gira despacio; entre ella y el círculo, un anillo de
+   puntitos gira al revés. */
+.po-guia { fill: none; stroke: rgba(255, 255, 255, .3); stroke-width: 1.2; stroke-dasharray: 3 7; transform-origin: 200px 200px; animation: poGira 50s linear infinite; }
+.po-puntitos { fill: none; stroke: rgba(255, 255, 255, .35); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 0 10; transform-origin: 200px 200px; animation: poGira 40s linear infinite reverse; }
+@keyframes poGira { to { transform: rotate(360deg); } }
+.po-luz { filter: drop-shadow(0 0 2px #0077C8) drop-shadow(0 0 8px rgba(79, 178, 242, .9)); animation: poAparece 1.2s ease 1700ms backwards; }
+@keyframes poAparece { from { opacity: 0; } }
+.po-rayo { fill: none; stroke-linecap: round; stroke-dasharray: 6 994; animation: poRayo var(--vuelta) linear infinite; }
+@keyframes poRayo { from { stroke-dashoffset: 6; } to { stroke-dashoffset: -994; } }
+
+/* Etapas: entran una por una y después se iluminan cuando pasa el rayo (misma
+   duración que la vuelta). Se pueden tocar: la elegida queda más grande. */
+.po-etapa {
+  position: absolute; width: 14%; aspect-ratio: 1; padding: 0; border: 0; border-radius: 50%;
+  color: #fff; background: var(--c); transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, .14), inset 0 -4px 8px rgba(0, 0, 0, .18), inset 0 3px 6px rgba(255, 255, 255, .25);
+  animation: poBrota .9s cubic-bezier(.2, 1.3, .4, 1) backwards, poPaso 10s ease-out infinite;
+  transition: scale .5s var(--suave-salida), outline-color .4s;
+  outline: 3px solid transparent; outline-offset: 4px;
+}
+.po-etapa svg { position: absolute; inset: 0; margin: auto; width: 44%; height: 44%; stroke-width: 2.2; pointer-events: none; }
+.po-etapa:hover { scale: 1.06; }
+.po-etapa.elegida { scale: 1.16; outline-color: rgba(255, 255, 255, .85); }
+@keyframes poBrota { from { opacity: 0; scale: 0; filter: brightness(2.2); } }
+@keyframes poPaso {
+  0% { transform: translate(-50%, -50%) scale(1.14); box-shadow: 0 0 0 4px rgba(255, 255, 255, .5), 0 0 28px 2px var(--c), inset 0 -4px 8px rgba(0, 0, 0, .18); }
+  14%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 0 4px rgba(255, 255, 255, .14), 0 0 0 0 transparent, inset 0 -4px 8px rgba(0, 0, 0, .18); }
+}
+
+/* Centro: el círculo blanco del brochure. Llega con un destello y en cada
+   cambio de cifra se enciende por dentro una luz celeste que se apaga. */
+.po-centro {
+  position: absolute; left: 50%; top: 50%; width: 54%; aspect-ratio: 1; transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 50%;
+  background: #fff; color: var(--navy); text-align: center; isolation: isolate; overflow: hidden;
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, .14), 0 24px 40px -18px rgba(0, 20, 50, .7);
+  animation: poLlega 1.3s cubic-bezier(.2, 1.2, .3, 1) 600ms backwards;
+}
+@keyframes poLlega {
+  from { opacity: 0; scale: .3; box-shadow: 0 0 0 0 rgba(255, 255, 255, .6), 0 0 80px 30px rgba(79, 178, 242, .9); }
+  60% { box-shadow: 0 0 0 26px rgba(255, 255, 255, 0), 0 0 60px 10px rgba(79, 178, 242, .5); }
+}
+.po-centro::before {
+  content: ''; position: absolute; z-index: -1; inset: -10%; border-radius: 50%; opacity: 0;
+  background: radial-gradient(circle, rgba(79, 178, 242, .45), rgba(159, 198, 232, .15) 45%, transparent 70%);
+}
+.po-centro.destello::before { animation: poDestello 1.1s ease-out; }
+@keyframes poDestello { 0% { opacity: 0; scale: .2; } 35% { opacity: 1; } 100% { opacity: 0; scale: 1.2; } }
+
+/* La cifra: al cambiar, la que estaba se desvanece y la nueva aparece desde
+   una neblina, sin cambiar de tamaño (el nombre va siempre en un renglón). */
+.po-cifra {
+  display: grid; gap: 6px; width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; opacity: 0;
+  transition: opacity .3s ease, filter .3s ease, transform .3s ease;
+}
+.po-cifra.magia { opacity: 1; animation: poMagia .9s cubic-bezier(.2, .7, .2, 1); }
+.po-cifra.saliendo { opacity: 0; filter: blur(6px); transform: translateY(-6px); animation: none; }
+@keyframes poMagia {
+  from { opacity: 0; filter: blur(10px); transform: translateY(8px) scale(.96); }
+  to { opacity: 1; filter: blur(0); transform: none; }
+}
+.po-cifra strong { font-family: var(--fuente-titulo); font-weight: 900; font-size: clamp(2.4rem, 5vw, 3.4rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.po-cifra span { white-space: nowrap; font-family: var(--fuente-titulo); font-weight: 700; font-size: 12.5px; line-height: 1.3; color: var(--texto-suave); }
+
+/* Pie de la órbita: el texto de siempre o el nombre de la etapa elegida */
+.po-pie {
+  position: absolute; left: 0; right: 0; bottom: -10px; text-align: center;
+  font-family: var(--fuente-mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--celeste);
+  animation: poAparece 1s ease 1900ms backwards;
+}
+.po-pie.con-etapa { font-family: var(--fuente-titulo); font-size: 15px; font-weight: 800; letter-spacing: .02em; text-transform: none; color: #fff; }
+.po-pie.con-etapa::before { content: ''; display: inline-block; width: 9px; height: 9px; margin-right: 9px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 2px rgba(255, 255, 255, .7); }
+.po-pie.magia { animation: poMagiaPie .8s cubic-bezier(.2, .7, .2, 1); }
+@keyframes poMagiaPie { from { opacity: 0; filter: blur(8px); letter-spacing: .3em; } }
+
+@media (max-width: 900px) {
+  .po-contenido { grid-template-columns: 1fr; }
+  .orbita { max-width: 380px; margin: 10px auto 0; }
+}
+@media (max-width: 600px) {
+  .portada { min-height: 0; padding: 72px 0 64px; }
+  .po-cifra span { font-size: 11.5px; }
+  .po-pie.con-etapa { font-size: 13.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .po-resplandor, .po-agua, .po-sube, .po-anillos, .po-guia, .po-puntitos, .po-luz, .po-rayo, .po-etapa, .po-centro,
+  .po-centro.destello::before, .po-cifra.magia, .po-pie, .po-pie.magia { animation: none; }
+}

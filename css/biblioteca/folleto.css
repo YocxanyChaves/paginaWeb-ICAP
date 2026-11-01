@@ -1,0 +1,214 @@
+/* Conozca más, versión Biblioteca: el brochure tríptico (folleto.js) a la
+   izquierda y, a la derecha, las pestañas de los departamentos con su texto.
+   El color de cada departamento sale de --c; el ancho de cada panel, de --w.
+   El escenario siempre mide tres paneles, así que cerrado el brochure queda
+   en el centro y al desplegarse no mueve nada alrededor. */
+.folletos {
+  --c: #0B5A96; --serif: 'Source Serif 4', Georgia, serif; --w: 172px;
+  display: grid; grid-template-columns: auto minmax(0, 460px); justify-content: center; align-items: center;
+  gap: clamp(32px, 6vw, 80px);
+}
+
+.folleto-escena { perspective: 2200px; padding: 10px 0 24px; }
+.folleto {
+  position: relative; width: calc(var(--w) * 3); height: calc(var(--w) * 2); cursor: pointer; transform-style: preserve-3d;
+  font-size: clamp(9.5px, calc(var(--w) * .075), 13px);
+}
+.folleto.entra { animation: folletoEntra .8s cubic-bezier(.2, .7, .2, 1); }
+@keyframes folletoEntra { from { opacity: 0; transform: translateY(16px); } }
+
+/* Los tres paneles. El izquierdo gira sobre su borde derecho y el derecho
+   sobre su borde izquierdo; doblados quedan encima del centro, el izquierdo
+   arriba de todo. Al abrirse pasan por delante, hacia quien mira. */
+.panel-f { position: absolute; top: 0; width: var(--w); height: 100%; transform-style: preserve-3d; }
+.panel-f.izquierdo { left: 0; transform-origin: right center; transform: translateZ(4px) rotateY(180deg); }
+.panel-f.centro { left: var(--w); box-shadow: 0 34px 40px -30px rgba(0, 31, 61, .55); }
+.panel-f.derecho { left: calc(var(--w) * 2); transform-origin: left center; transform: translateZ(2px) rotateY(-180deg); }
+.folleto.paso-1 .izquierdo, .folleto.paso-2 .derecho { transform: translateZ(0) rotateY(0); }
+
+/* El giro de cada pliegue va en dos tramos: hasta quedar de canto (90°) y de
+   ahí hasta el final. Justo en la mitad, cuando la hoja casi no se ve, cambia
+   de cara: así al abrir se ve la portada y luego la página de adentro, y al
+   cerrar al revés, sin que nada se asome al revés. folleto.js pone
+   .gira-abre o .gira-cierra al pliegue mientras dura (1.4s). El izquierdo
+   arranca desde --desde: si la portada estaba levantada por el mouse, sale
+   de ahí y no pega un brinco hasta cerrada. */
+.izquierdo.gira-abre { animation: izqAbre 1.4s both; }
+.izquierdo.gira-cierra { animation: izqCierra 1.4s both; }
+.derecho.gira-abre { animation: derAbre 1.4s both; }
+.derecho.gira-cierra { animation: derCierra 1.4s both; }
+@keyframes izqAbre {
+  0% { transform: translateZ(4px) rotateY(var(--desde, 180deg)); animation-timing-function: cubic-bezier(.4, 0, .85, .6); }
+  50% { transform: translateZ(4px) rotateY(90deg); animation-timing-function: cubic-bezier(.15, .4, .35, 1); }
+  100% { transform: translateZ(0) rotateY(0); }
+}
+@keyframes izqCierra {
+  0% { transform: translateZ(0) rotateY(0); animation-timing-function: cubic-bezier(.4, 0, .85, .6); }
+  50% { transform: translateZ(4px) rotateY(90deg); animation-timing-function: cubic-bezier(.15, .4, .35, 1); }
+  100% { transform: translateZ(4px) rotateY(180deg); }
+}
+@keyframes derAbre {
+  0% { transform: translateZ(2px) rotateY(-180deg); animation-timing-function: cubic-bezier(.4, 0, .85, .6); }
+  50% { transform: translateZ(2px) rotateY(-90deg); animation-timing-function: cubic-bezier(.15, .4, .35, 1); }
+  100% { transform: translateZ(0) rotateY(0); }
+}
+@keyframes derCierra {
+  0% { transform: translateZ(0) rotateY(0); animation-timing-function: cubic-bezier(.4, 0, .85, .6); }
+  50% { transform: translateZ(2px) rotateY(-90deg); animation-timing-function: cubic-bezier(.15, .4, .35, 1); }
+  100% { transform: translateZ(2px) rotateY(-180deg); }
+}
+/* Qué cara se ve: cerrado la de afuera, abierto la de adentro; mientras gira,
+   cambian a la mitad. */
+.izquierdo .adentro, .derecho .adentro { opacity: 0; }
+.folleto.paso-1 .izquierdo .adentro, .folleto.paso-2 .derecho .adentro { opacity: 1; }
+.folleto.paso-1 .izquierdo .afuera, .folleto.paso-2 .derecho .afuera { opacity: 0; }
+.gira-abre .afuera, .gira-cierra .adentro { animation: caraSale 1.4s both; }
+.gira-abre .adentro, .gira-cierra .afuera { animation: caraEntra 1.4s both; }
+@keyframes caraSale { 0%, 49.9% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes caraEntra { 0%, 49.9% { opacity: 0; } 50%, 100% { opacity: 1; } }
+
+/* Cerrado se exhibe inclinado, como en un exhibidor; al abrirse se endereza.
+   Al pasar el mouse la portada se levanta y se asoma lo de abajo, y el
+   brochure sube un poco. Ya abierto no hace esto. */
+.folleto { transform: rotateY(-18deg) rotateX(7deg) rotateZ(-1.5deg); transition: transform 1.4s cubic-bezier(.4, 0, .2, 1), translate 1s cubic-bezier(.4, 0, .2, 1); }
+.folleto.paso-1 { transform: none; }
+.folleto:not(.paso-1):hover { translate: 0 -18px; transition-duration: 1.4s, .6s; }
+.pliegue { transition: transform .6s cubic-bezier(.45, .05, .25, 1); }
+.folleto:not(.paso-1):hover .izquierdo { transform: translateZ(4px) rotateY(136deg); }
+
+.cara {
+  position: absolute; inset: 0; overflow: hidden; display: flex; flex-direction: column;
+  -webkit-backface-visibility: hidden; backface-visibility: hidden;
+}
+.cara.afuera { transform: rotateY(180deg); }
+
+/* Papel de adentro, con la sombra de los dobleces */
+.fp-papel { padding: 1.9em 1.4em 1.4em; background: #FCFBF8; color: var(--texto); }
+.izquierdo .fp-papel { border-radius: 4px 0 0 4px; background: linear-gradient(270deg, rgba(0, 0, 0, .07), transparent 14%) #FCFBF8; }
+.centro .fp-papel { background: linear-gradient(90deg, rgba(0, 0, 0, .05), transparent 10%, transparent 90%, rgba(0, 0, 0, .05)) #FCFBF8; }
+.derecho .fp-papel { border-radius: 0 4px 4px 0; background: linear-gradient(90deg, rgba(0, 0, 0, .07), transparent 14%) #FCFBF8; }
+/* Ojo: nada de filter ni opacity en .panel-f: aplanan el 3D y entonces las dos
+   caras se dibujan siempre (la de atrás, al revés). */
+
+/* Caras de afuera: el degradado, las ondas, la cápsula y el emblema */
+.fp-color {
+  align-items: center; justify-content: center; gap: .9em; padding: 1.6em 1.1em; text-align: center; color: #fff; border-radius: 4px;
+  background:
+    radial-gradient(circle at 50% 24%, rgba(255, 255, 255, .2), transparent 60%),
+    linear-gradient(160deg, color-mix(in srgb, var(--c), #001F3D 45%) 0%, var(--c) 55%, color-mix(in srgb, var(--c), #fff 18%) 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08);
+}
+.fp-ondas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.fp-ondas path { fill: none; stroke: rgba(255, 255, 255, .22); stroke-width: .7; vector-effect: non-scaling-stroke; }
+.fp-pildora {
+  position: relative; display: inline-flex; align-items: center; gap: .5em; padding: .3em .9em; border-radius: 999px;
+  background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .2);
+  font-size: .75em; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #D6E9F7;
+}
+.fp-pildora::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--brillo); }
+.fp-emblema { position: relative; display: grid; place-items: center; width: 4.6em; height: 4.6em; margin: .4em 0; border-radius: 50%; background: #fff; box-shadow: 0 0 0 4px rgba(255, 255, 255, .22), 0 10px 20px -8px rgba(0, 0, 0, .4); }
+.fp-emblema::before { content: ''; position: absolute; inset: -.8em; border-radius: 50%; border: 1px dashed rgba(255, 255, 255, .4); animation: fpGira 18s linear infinite; transition: inset .5s var(--suave-salida), border-color .5s; }
+/* Al pasar el mouse por el emblema, la órbita de puntitos se abre y se aclara */
+.fp-emblema { transition: transform .5s var(--suave-salida); }
+.fp-emblema:hover { transform: scale(1.06); }
+.fp-emblema:hover::before { inset: -1.2em; border-color: rgba(255, 255, 255, .8); animation-duration: 5s; }
+@keyframes fpGira { to { transform: rotate(360deg); } }
+.fp-emblema img { width: 64%; }
+.fp-color strong { position: relative; font-family: var(--fuente-titulo); font-size: 1.45em; font-weight: 900; line-height: 1.1; }
+.fp-color small { position: relative; font-size: .8em; line-height: 1.4; color: #D6E9F7; }
+.fp-escudo-blanco { position: relative; width: 62%; filter: brightness(0) invert(1); opacity: .85; }
+.fp-marca strong { font-size: 1.2em; }
+.fp-pasar {
+  position: relative; display: inline-flex; align-items: center; gap: .4em; margin-top: .6em; padding: .5em 1em; border-radius: 999px;
+  font-family: var(--fuente-titulo); font-size: .85em; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--c); background: #fff;
+}
+.fp-pasar svg { width: 1.1em; height: 1.1em; }
+
+/* Contenido de adentro */
+.fp-agua { position: absolute; width: 130%; right: -45%; bottom: -12%; opacity: .06; transform: rotate(-8deg); pointer-events: none; }
+.fp-agua.centro { width: 120%; right: auto; left: 50%; top: 50%; bottom: auto; transform: translate(-50%, -50%); }
+.fp-kicker {
+  position: relative; align-self: flex-start; padding: .25em .8em; border-radius: 999px;
+  font-family: var(--fuente-mono); font-size: .72em; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--c); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 35%, transparent);
+}
+.fp-papel h4 { position: relative; margin-top: .7em; font-family: var(--serif); font-size: 1.35em; font-weight: 600; line-height: 1.15; color: var(--navy); }
+.fp-secciones { position: relative; list-style: none; margin: 1.1em 0 0; padding: 0; display: grid; gap: .75em; }
+.fp-secciones li { display: flex; align-items: center; gap: .7em; font-family: var(--serif); font-size: 1.02em; line-height: 1.25; color: var(--navy); }
+.fp-secciones span {
+  display: grid; place-items: center; width: 2.1em; height: 2.1em; flex: none; border-radius: 50%; color: #fff; background: var(--c);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--c) 35%, transparent); transition: transform .4s var(--suave-salida), box-shadow .4s;
+}
+.fp-secciones svg { width: 52%; height: 52%; stroke-width: 2; transition: transform .5s var(--suave-salida); }
+/* Al pasar el mouse por una sección, su circulito crece con un halo y el
+   ícono da un giro corto */
+.fp-secciones li:hover span { transform: scale(1.15); box-shadow: 0 0 0 .35em color-mix(in srgb, var(--c) 18%, transparent); }
+.fp-secciones li:hover svg { animation: fpIcono .6s var(--suave-salida); }
+@keyframes fpIcono { 30% { transform: rotate(-14deg) scale(1.1); } 65% { transform: rotate(8deg); } }
+.fp-firma { position: relative; margin-top: auto; padding-top: .8em; border-top: 1px solid rgba(0, 51, 102, .1); font-size: .78em; color: var(--texto-suave); }
+
+/* Último panel: sólo el enlace */
+.fp-final { align-items: center; justify-content: center; text-align: center; }
+.fp-final .fp-kicker { align-self: center; }
+.fp-boton {
+  position: relative; display: inline-flex; align-items: center; gap: .5em; margin-top: 1.2em; padding: .9em 1.4em; border-radius: 12px;
+  font-family: var(--fuente-titulo); font-size: .95em; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; color: #fff;
+  background: var(--c); box-shadow: 0 14px 26px -14px var(--c); transition: transform .3s var(--suave-salida), filter .3s;
+}
+.fp-boton svg { width: 1.2em; height: 1.2em; }
+.fp-boton:hover { transform: translateY(-2px); filter: brightness(1.1); }
+.fp-volver {
+  position: relative; display: inline-flex; align-items: center; gap: .4em; margin-top: 1em; padding: 0; border: 0; background: none;
+  font-family: var(--serif); font-size: .95em; font-style: italic; color: var(--texto-suave); cursor: pointer;
+}
+.fp-volver svg { width: 1.05em; height: 1.05em; }
+.fp-volver:hover { color: var(--navy); }
+
+.folleto-pista { display: flex; align-items: center; gap: 8px; font-size: 14px !important; color: var(--texto-suave) !important; font-style: italic; }
+.folleto-pista svg { width: 17px; height: 17px; flex: none; color: var(--c); }
+
+@media (max-width: 980px) {
+  .folletos { grid-template-columns: 1fr; gap: 20px; justify-items: center; }
+  .folletos .tomo-texto { width: 100%; max-width: 560px; }
+}
+@media (max-width: 600px) {
+  .folletos { --w: calc((100vw - 36px) / 3); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pliegue, .pliegue .cara, .folleto, .folleto.entra, .fp-emblema::before, .fp-secciones li:hover svg { transition: none; animation: none; }
+}
+
+/* Texto de la derecha */
+/* Pestañas como separadores de libro */
+.tomo-pestanas { display: flex; gap: 6px; border-bottom: 1px solid rgba(0, 51, 102, .12); }
+.tomo-pestana {
+  position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; margin-bottom: -1px;
+  border: 0; border-bottom: 2px solid transparent; background: none;
+  font-family: var(--fuente-titulo); font-size: 14px; font-weight: 700; color: var(--texto-suave);
+  transition: color .3s, border-color .3s;
+}
+.tomo-pestana svg { width: 17px; height: 17px; }
+.tomo-pestana:hover { color: var(--navy); }
+.tomo-pestana[aria-selected="true"] { color: var(--c); border-bottom-color: var(--c); }
+
+.tomo-panel { padding-top: 22px; animation: aparecer .6s ease both; }
+.tomo-panel > * { animation: tomoSube .6s var(--suave-salida) both; }
+.tomo-panel > *:nth-child(2) { animation-delay: 60ms; }
+.tomo-panel > *:nth-child(3) { animation-delay: 120ms; }
+.tomo-panel > *:nth-child(n+4) { animation-delay: 180ms; }
+@keyframes tomoSube { from { opacity: 0; transform: translateY(10px); } }
+.tomo-kicker { font-family: var(--fuente-mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--texto-suave); }
+.tomo-panel h3 { margin-top: 6px; font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.3rem); font-weight: 600; line-height: 1.1; color: var(--navy); }
+.tomo-panel p { margin-top: 12px; font-family: var(--serif); font-size: 16px; line-height: 1.65; color: var(--texto); }
+.tomo-panel h4 { margin: 24px 0 6px; font-family: var(--fuente-mono); font-size: 10.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--texto-suave); }
+
+.tomo-ir {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; padding: 13px 22px; border-radius: 14px; text-decoration: none;
+  font-family: var(--fuente-titulo); font-size: 13.5px; font-weight: 800; color: #fff; background: var(--c);
+  box-shadow: 0 14px 26px -14px color-mix(in srgb, var(--c), transparent 20%); transition: transform .3s var(--suave-salida), filter .3s;
+}
+.tomo-ir svg { width: 17px; height: 17px; }
+.tomo-ir:hover { transform: translateY(-2px); filter: brightness(1.1); }
+@media (max-width: 600px) {
+  .tomo-pestana { flex: 1; justify-content: center; padding-inline: 8px; }
+}

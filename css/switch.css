@@ -1,5 +1,5 @@
-/* Switch flotante para cambiar entre la versión interactiva y la clásica.
-   Lo usan las dos páginas. */
+/* Switch flotante para cambiar entre las tres versiones de la página.
+   Lo usan todas. */
 .cambio-version {
   position: fixed; z-index: 70; top: 16px; right: 16px;
   display: flex; padding: 4px; border-radius: 999px;

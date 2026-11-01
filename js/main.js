@@ -1,9 +1,7 @@
 /* Arranque: cada sección se pinta sola y los bloques .revelar aparecen al
    hacer scroll. */
 ICAP.hero.iniciar();
-ICAP.servicios.iniciar();
 ICAP.etapas.iniciar();
-ICAP.proyectos.iniciar();
 ICAP.areas.iniciar();
 ICAP.aliados.iniciar();
 ICAP.iconos();

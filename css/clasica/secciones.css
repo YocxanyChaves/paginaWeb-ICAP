@@ -1,45 +1,44 @@
-/* Servicios, áreas y etapas de la versión clásica: todo a la
-   vista, en texto. */
+/* Áreas y etapas de la versión clásica. */
 
-/* Diez líneas: tarjetas que dan vuelta al pasar el mouse (o al tocarlas),
-   como las de "Modelo educativo" de icap.ac.cr: frente gris claro con el
-   título en azul, dorso azul con la descripción. */
-.c-servicios { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
-.c-tarjeta { height: 250px; perspective: 1000px; outline: none; }
+/* Catorce áreas en tarjetas que dan vuelta con un clic, como las de "Modelo
+   educativo" de icap.ac.cr: frente celeste clarito con el ícono del área en
+   su color y el nombre; el dorso es del color del área, con su ícono, la
+   descripción y la cantidad de proyectos. */
+/* De a cuatro por fila; la última fila, con las que sobran, queda centrada */
+.c-areas { --por-fila: 4; list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+.c-tarjeta { flex: 0 0 calc((100% - (var(--por-fila) - 1) * 16px) / var(--por-fila)); height: 250px; perspective: 1000px; outline: none; }
 .c-tarjeta-giro { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .6s ease; }
-.c-tarjeta:hover .c-tarjeta-giro, .c-tarjeta:focus-visible .c-tarjeta-giro, .c-tarjeta.volteada .c-tarjeta-giro { transform: rotateY(180deg); }
+/* Se dan vuelta sólo con un clic (o Enter/Espacio), no al pasar el mouse */
+.c-tarjeta { cursor: pointer; }
+.c-tarjeta:focus-visible .c-tarjeta-frente, .c-tarjeta:focus-visible .c-tarjeta-dorso { box-shadow: 0 0 0 3px var(--brillo); }
+.c-tarjeta.volteada .c-tarjeta-giro { transform: rotateY(180deg); }
 .c-tarjeta-frente, .c-tarjeta-dorso {
-  position: absolute; inset: 0; border-radius: 12px; padding: 22px 18px;
+  position: absolute; inset: 0; border-radius: 12px; padding: 22px 20px;
   -webkit-backface-visibility: hidden; backface-visibility: hidden;
 }
 .c-tarjeta-frente {
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center;
-  background: #F7F7F7; border: 1px solid var(--borde);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center;
+  background: linear-gradient(180deg, #EEF6FD 0%, #DDECF8 100%); border: 1px solid #CFE2F3; box-shadow: 0 14px 28px -22px rgba(0, 31, 61, .45);
 }
-.c-tarjeta-num { position: absolute; top: 14px; left: 16px; font-family: var(--fuente-mono); font-size: 12px; font-weight: 600; color: var(--texto-suave); }
-.c-tarjeta-frente svg { width: 30px; height: 30px; color: #0084C9; stroke-width: 1.8; }
-.c-tarjeta-frente h3 { font-size: 15.5px; font-weight: 700; line-height: 1.35; color: #0084C9; }
+.c-tarjeta-icono {
+  display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; color: var(--c);
+  background: #fff; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 30%, transparent), 0 6px 14px -8px rgba(0, 51, 102, .35);
+}
+.c-tarjeta-icono svg { width: 28px; height: 28px; stroke-width: 1.8; }
+.c-tarjeta-frente h3 { font-size: 16.5px; font-weight: 700; line-height: 1.3; color: var(--navy); }
 .c-tarjeta-dorso {
-  transform: rotateY(180deg); overflow: auto; color: #fff;
-  background: linear-gradient(160deg, #0084C9 0%, var(--navy) 100%);
+  transform: rotateY(180deg); overflow: auto; display: flex; flex-direction: column; color: #fff;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--c), #000 12%) 0%, color-mix(in srgb, var(--c), #000 38%) 100%);
 }
-.c-tarjeta-dorso p { font-size: 13px; line-height: 1.55; }
-.c-tarjeta-dorso ul { margin: 10px 0 0; padding-left: 16px; font-size: 12.5px; line-height: 1.6; color: #D9EAF8; }
-@media (max-width: 1100px) { .c-servicios { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 700px) { .c-servicios { grid-template-columns: repeat(2, 1fr); } .c-tarjeta { height: 260px; } }
-@media (max-width: 440px) { .c-servicios { grid-template-columns: 1fr; } .c-tarjeta { height: 175px; } }
-
-/* Catorce áreas como bloques de texto a todo el ancho, una debajo de la otra,
-   separadas por una línea fina. */
-.c-areas { list-style: none; margin: 0; padding: 0; }
-.c-areas li { padding: 26px 0; border-top: 1px solid var(--borde); }
-.c-areas li:last-child { border-bottom: 1px solid var(--borde); }
-.c-areas h3 { font-size: 20px; font-weight: 700; color: var(--navy); }
-.c-areas p { font-size: 15px; line-height: 1.65; color: var(--texto-suave); margin-top: 6px; }
-/* Cantidad de proyectos, grande y del color del área */
-.c-area-cifra { display: flex; align-items: baseline; gap: 8px; margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--texto-suave); }
-.c-area-cifra strong { font-family: var(--fuente-titulo); font-size: 2.4rem; font-weight: 800; line-height: 1; color: var(--c); }
-@media (max-width: 600px) { .c-areas li { padding: 20px 0; } }
+.c-tarjeta-dorso h4 { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 800; line-height: 1.3; }
+.c-tarjeta-dorso h4 svg { width: 18px; height: 18px; flex: none; stroke-width: 2; }
+.c-tarjeta-dorso p { margin-top: 8px; font-size: 13.5px; line-height: 1.55; color: rgba(255, 255, 255, .92); }
+/* Cantidad de proyectos, grande, al pie del dorso */
+.c-area-cifra { display: flex; align-items: baseline; justify-content: center; gap: 8px; margin-top: auto; padding-top: 10px; font-size: 13px; font-weight: 600; color: rgba(255, 255, 255, .85); }
+.c-area-cifra strong { font-family: var(--fuente-titulo); font-size: 2.1rem; font-weight: 800; line-height: 1; color: #fff; }
+@media (max-width: 1000px) { .c-areas { --por-fila: 3; } }
+@media (max-width: 700px) { .c-areas { --por-fila: 2; } .c-tarjeta { height: 260px; } }
+@media (max-width: 440px) { .c-areas { --por-fila: 1; } .c-tarjeta { height: 210px; } }
 
 /* Diagrama estático como el de la página oficial */
 .c-diagrama { position: relative; aspect-ratio: 500 / 200; max-width: 620px; margin: 0 auto 20px; }
@@ -65,4 +64,4 @@
 .clasica .logo-aliado { border-radius: 12px; box-shadow: none; }
 .clasica .logo-aliado img { filter: none; opacity: 1; }
 .clasica .nota-aliado { border-radius: 12px; }
-.clasica .nota-proyecto, .clasica .nota-cuerpo .boton { border-radius: 8px; }
+.clasica .nota-proyecto { border-radius: 8px; }

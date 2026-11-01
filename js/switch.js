@@ -1,6 +1,6 @@
-/* Switch de versión (interactiva / clásica). Las dos páginas tienen las mismas
-   secciones con los mismos ids, así que al cambiar se llega a la sección que
-   se estaba viendo. */
+/* Switch de versión (interactiva / clásica / biblioteca). Las tres páginas
+   tienen las mismas secciones con los mismos ids, así que al cambiar se llega
+   a la sección que se estaba viendo. */
 (() => {
   const switchVersion = document.querySelector('.cambio-version');
   if (!switchVersion) return;

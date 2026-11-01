@@ -1,12 +1,9 @@
 /* Tira de organizaciones: avanza sola y se puede arrastrar (mouse o dedo),
    con inercia al soltar. Tocar un logo lo pinta a color y abre una nota con
-   sus proyectos; cada proyecto lleva al explorador ya filtrado. La usan las dos
-   versiones: la clásica le pasa su propia lista de proyectos. */
+   sus proyectos y, al pie, el enlace a su sitio. La usan las dos versiones. */
 ICAP.aliados = (() => {
   const VELOCIDAD = -0.035; // px por milisegundo
   const UMBRAL_ARRASTRE = 6;
-
-  let filtrar = (filtro) => ICAP.proyectos.filtrar(filtro);
 
   let desplazamiento = 0;
   let inercia = 0;
@@ -83,10 +80,10 @@ ICAP.aliados = (() => {
   function notaHtml(a) {
     const proyectos = ICAP.proyectosDeAliado(a);
     const lista = proyectos.map((p) => `
-      <button type="button" class="nota-proyecto" data-id="${p.id}">
+      <div class="nota-proyecto">
         <span class="puntos">${p.etiquetas.map((id) => `<i style="--c:${ICAP.etiqueta(id).color}"></i>`).join('')}</span>
-        <span>${p.titulo}</span><i data-lucide="chevron-right"></i>
-      </button>`).join('');
+        <span>${p.titulo}</span>
+      </div>`).join('');
     return `
       <div class="nota-cabeza">
         <img src="assets/logos/${a.logo}.png" alt="">
@@ -95,10 +92,10 @@ ICAP.aliados = (() => {
       </div>
       <div class="nota-cuerpo">
         ${proyectos.length
-          ? `<span class="nota-titulo">Proyectos relacionados · ${proyectos.length}</span>${lista}
-             <button type="button" class="boton ver-todos">Ver ${proyectos.length === 1 ? 'el proyecto' : `los ${proyectos.length} proyectos`} en el explorador <i data-lucide="arrow-right"></i></button>`
+          ? `<span class="nota-titulo">Proyectos relacionados · ${proyectos.length}</span>${lista}`
           : '<p>Organización con la que el ICAP colabora. Todavía no hay proyectos suyos en la clasificación de la última década.</p>'}
-      </div>`;
+      </div>
+      ${a.web ? `<a class="nota-web" href="${a.web}" target="_blank" rel="noopener">${new URL(a.web).hostname.replace(/^www\./, '')}<i data-lucide="arrow-up-right"></i></a>` : ''}`;
   }
 
   function abrir(i, logo) {
@@ -119,17 +116,6 @@ ICAP.aliados = (() => {
     ICAP.iconos();
 
     nota.querySelector('.nota-cerrar').onclick = cerrar;
-    nota.querySelectorAll('.nota-proyecto').forEach((b) => {
-      b.onclick = () => irA({ proyecto: ICAP.PROYECTOS.find((p) => p.id === +b.dataset.id) });
-    });
-    const todos = nota.querySelector('.ver-todos');
-    if (todos) todos.onclick = () => irA({ aliado: a });
-  }
-
-  function irA(filtro) {
-    cerrar();
-    filtrar(filtro);
-    ICAP.$('#proyectos').scrollIntoView({ behavior: 'smooth' });
   }
 
   function cerrar() {
@@ -140,8 +126,7 @@ ICAP.aliados = (() => {
     document.querySelectorAll('.logo-aliado.elegido').forEach((l) => l.classList.remove('elegido'));
   }
 
-  function iniciar(opciones = {}) {
-    filtrar = opciones.filtrar ?? filtrar;
+  function iniciar() {
     pintar();
     escucharArrastre();
     requestAnimationFrame((t) => animar(t, t));
